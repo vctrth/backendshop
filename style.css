@@ -1,0 +1,81 @@
+:root {
+
+    --accent_green: #3AFF16;
+}
+
+body {
+
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+h2 {
+
+    font-size: 3em;
+    font-family: serif;
+}
+
+.accent_color {
+
+    color: var(--accent_green);
+}
+
+.login_card {
+    position: absolute;
+    /* top: 45%; */
+    
+    width: 25%;
+    height: 100%;
+    
+    min-width: 250px;
+    max-width: 500px;
+    
+    padding-right: 3em;
+    padding-left: 3em;
+    
+    background-color: whitesmoke;
+}
+
+.login_card h1 {
+
+    position: relative;
+    top: 3em;
+    font-size: 4.5em;
+}
+
+.login_form {
+    position: absolute;
+    bottom: 10%;
+
+    /*100% width is even wijd als de login_card maar aangezien deze padding heeft komt het er dan ook uit */
+    width: 75%;
+    /* padding-top: 100%; */
+
+    display: flex;
+    flex-direction: column;
+    
+    gap: 1em;
+}
+
+.login_form input:not(.btn) {
+
+    outline: 0;
+    border-width: 0 0 1px 0;
+    border-color: lightgray;
+    
+    background-color: whitesmoke;
+}
+.login_form input:not(.btn):focus {
+    
+    border-width: 0 0 2px 0;
+    border-color: var(--accent_green);
+}
+
+.btn {
+
+    margin-top: 1em;
+}
+
+.error_text {
+
+    color: red;
+}
