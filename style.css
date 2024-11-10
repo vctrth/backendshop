@@ -73,6 +73,18 @@ h2 {
 .btn {
 
     margin-top: 1em;
+    padding: .5em;
+
+    border: none;
+    
+    background-color: var(--accent_green);
+    filter: saturate(.5);
+
+    transition: filter ease-out .1s;
+}
+.btn:hover{
+
+    filter: saturate(1);
 }
 
 .error_text {
