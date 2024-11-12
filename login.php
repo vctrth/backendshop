@@ -1,5 +1,8 @@
 <?php
 
+    $conn = new mysqli("127.0.0.1", "root", "root", "backendshop", "8889");
+    $users = $conn->query("SELECT * from tl_user");
+
     function canLogin($username, $password){
 
         if($username === "victor@shop.be" && $password ==="12345isnotsecure"){
@@ -43,7 +46,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    
+
+<!-- 
+<?php foreach($users as $user): ?>
+    <h2><?php echo $user["username"]; ?></h2>
+<?php endforeach; ?> 
+-->
 
     <div class="login_card">
         
