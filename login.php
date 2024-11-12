@@ -46,19 +46,12 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-
-<!-- 
-<?php foreach($users as $user): ?>
-    <h2><?php echo $user["username"]; ?></h2>
-<?php endforeach; ?> 
--->
-
     <div class="login_card">
         
-        <h1>webshop<span class="accent_color">.</span></h1>
         <form action="" method="post" class="login_form">
-            
+            <h1>webshop<span class="accent_color">.</span></h1>
             <h2><i>Login</i></h2>
+            
 
             <?php if(isset($error)): ?>
             <p class="error_text">The password or username was incorrect. Please try again</p>

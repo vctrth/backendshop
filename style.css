@@ -8,6 +8,13 @@ body {
     font-family: Arial, Helvetica, sans-serif;
 }
 
+h1 {
+
+    /* position: relative; */
+    /* top: 3em; */
+    font-size: 4.5em;
+}
+
 h2 {
 
     font-size: 3em;
@@ -33,13 +40,6 @@ h2 {
     padding-left: 3em;
     
     background-color: whitesmoke;
-}
-
-.login_card h1 {
-
-    position: relative;
-    top: 3em;
-    font-size: 4.5em;
 }
 
 .login_form {

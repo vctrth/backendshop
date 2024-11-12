@@ -44,10 +44,10 @@ $conn = new mysqli("127.0.0.1", "root", "root", "backendshop", "8889");
 
     <div class="login_card">
         
-    <h1>webshop<span class="accent_color">.</span></h1>
-
+        
         <form action="" method="post" class="login_form">
             
+            <h1>webshop<span class="accent_color">.</span></h1>
             <h2><i>Sign up</i></h2>
 
             <?php if(isset($error)): ?>
