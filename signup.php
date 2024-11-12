@@ -21,6 +21,8 @@ $conn = new mysqli("127.0.0.1", "root", "root", "backendshop", "8889");
             // var_dump($result);
             if($result === true){
 
+                session_start();
+                $_SESSION["username"] = $username;
                 header("Location: index.php");
             }
         }
@@ -46,7 +48,7 @@ $conn = new mysqli("127.0.0.1", "root", "root", "backendshop", "8889");
         
         
         <form action="" method="post" class="login_form">
-            
+
             <h1>webshop<span class="accent_color">.</span></h1>
             <h2><i>Sign up</i></h2>
 
