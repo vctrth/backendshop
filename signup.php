@@ -1,4 +1,35 @@
-<!DOCTYPE html>
+<?php
+$conn = new mysqli("127.0.0.1", "root", "root", "backendshop", "8889");
+
+    if(!empty($_POST)){
+
+        if($_POST['password'] === $_POST['confirm_password']){
+            $options = [
+
+                "cost" => 12
+            ];
+
+            $username = $_POST["username"];
+            $password = password_hash($_POST["password"], PASSWORD_DEFAULT, $options);
+
+            // echo $password;
+            $result = $conn->query("
+            INSERT INTO
+            tl_user(username, password, role)
+            VALUES ('".$conn->real_escape_string($username )."', '".$conn->real_escape_string($password )."', 0);
+            ");
+            // var_dump($result);
+            if($result === true){
+
+                header("Location: index.php");
+            }
+        }
+        else {
+
+            $error = true;
+        }
+    }
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,6 +45,7 @@
     <div class="login_card">
         
     <h1>webshop<span class="accent_color">.</span></h1>
+
         <form action="" method="post" class="login_form">
             
             <h2><i>Sign up</i></h2>
