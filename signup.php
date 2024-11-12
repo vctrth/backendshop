@@ -1,5 +1,6 @@
 <?php
-$conn = new mysqli("127.0.0.1", "root", "root", "backendshop", "8889");
+// $conn = new mysqli("127.0.0.1", "root", "root", "backendshop", "8889");
+$conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
 
     if(!empty($_POST)){
 
@@ -13,18 +14,15 @@ $conn = new mysqli("127.0.0.1", "root", "root", "backendshop", "8889");
             $password = password_hash($_POST["password"], PASSWORD_DEFAULT, $options);
 
             // echo $password;
-            $result = $conn->query("
-            INSERT INTO
-            tl_user(username, password, role)
-            VALUES ('".$conn->real_escape_string($username )."', '".$conn->real_escape_string($password )."', 0);
+            $query = $conn->prepare("
+            INSERT INTO tl_user(username, password, role)
+            VALUES (:username, :password, 0);
             ");
+            $query->bindValue(":username", $username);
+            $query->bindValue(":password", $password);
+            $query->execute();
+            
             // var_dump($result);
-            if($result === true){
-
-                session_start();
-                $_SESSION["username"] = $username;
-                header("Location: index.php");
-            }
         }
         else {
 

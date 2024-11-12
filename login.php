@@ -1,16 +1,23 @@
 <?php
 
-    $conn = new mysqli("127.0.0.1", "root", "root", "backendshop", "8889");
-    $users = $conn->query("SELECT * from tl_user");
+function canLogin($username, $password){
+        $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        $statement = $conn->prepare("SELECT * FROM tl_user WHERE username = :username");
+        $statement->bindValue(":username", $username);
+        $statement->execute();
+        $user = $statement->fetch();
 
-    function canLogin($username, $password){
+        if(!$user){
 
-        if($username === "victor@shop.be" && $password ==="12345isnotsecure"){
-
+            return false;
+        } 
+        $hash = $user['password'];
+        if(password_verify($password, $hash)){
+ 
             return true;
         }
         else {
-            
+
             return false;
         }
     }
