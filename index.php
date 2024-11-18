@@ -43,6 +43,8 @@ $products = Product::getAll();
         </div>
     </nav>
 
+    <h2><i>Welcome, <?php echo $_SESSION['username'] ?>!</i></h2>
+
     <div class="products">
 
         <?php forEach($products as $product): ?>

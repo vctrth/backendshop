@@ -11,6 +11,14 @@
     padding: 0 2em;
 }
 
+h2 {
+
+    margin-left: 2em;
+    margin-top: 1.5em;
+    margin-bottom: 0;
+    padding-left: 0;
+}
+
 .top_nav h3 {
 
     font-size: 2em;
@@ -30,7 +38,7 @@ h3 a {
 
     /* width: 100%; */
 
-    margin: 5em;
+    margin: 1.5em 5em;
     flex-wrap: wrap;
 
     flex-grow: 1;
