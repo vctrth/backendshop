@@ -1,37 +1,18 @@
 <?php
-
-function canLogin($username, $password){
-        $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
-        $statement = $conn->prepare("SELECT * FROM tl_user WHERE username = :username");
-        $statement->bindValue(":username", $username);
-        $statement->execute();
-        $user = $statement->fetch();
-
-        if(!$user){
-
-            return false;
-        } 
-        $hash = $user['password'];
-        if(password_verify($password, $hash)){
- 
-            return true;
-        }
-        else {
-
-            return false;
-        }
-    }
+include_once(__DIR__. "/classes/User.php");
 
     if(!empty($_POST)){
 
-        $username = $_POST['username'];
-        $password = $_POST['password'];
+        $user = new User();
 
-        if (canLogin($username, $password)){
+        $user->setUsername($_POST['username']);
+        $user->setPassword($_POST['password']);
+
+        if ($user->login()){
 
             //LOGIN
             session_start();
-            $_SESSION["username"] = $username;
+            $_SESSION["username"] = $user->getUsername();
             header("Location: index.php");
         }
         else {

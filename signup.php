@@ -1,5 +1,7 @@
 <?php
 // $conn = new mysqli("127.0.0.1", "root", "root", "backendshop", "8889");
+include_once(__DIR__. "/classes/User.php");
+
 $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
 
     if(!empty($_POST)){
@@ -10,19 +12,10 @@ $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "ro
                 "cost" => 12
             ];
 
-            $username = $_POST["username"];
-            $password = password_hash($_POST["password"], PASSWORD_DEFAULT, $options);
-
-            // echo $password;
-            $query = $conn->prepare("
-            INSERT INTO tl_user(username, password, role)
-            VALUES (:username, :password, 0);
-            ");
-            $query->bindValue(":username", $username);
-            $query->bindValue(":password", $password);
-            $query->execute();
-            
-            // var_dump($result);
+            $user = new User();
+            $user->setUsername($_POST["username"]);
+            $user->setPassword(password_hash($_POST["password"], PASSWORD_DEFAULT, $options));
+            $user->save();
         }
         else {
 
