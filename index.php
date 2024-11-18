@@ -1,10 +1,13 @@
 <?php 
 
 include_once(__DIR__. "/classes/Product.php");
+include_once(__DIR__. "/classes/User.php");
 
 session_start();
 if(isset($_SESSION["username"])){
 
+    $user = new User();
+    $user->setUsername($_SESSION['username']);
     // echo "Welcome ".$_SESSION["username"];
 }
 else {
@@ -29,8 +32,15 @@ $products = Product::getAll();
 <body>
 
     <nav class="top_nav">
-        <h3><a href="index.php">webshop<span class="accent_color">.</span></a></h3>
-        <a href="logout.php">logout</a>
+
+        <div class="left_content">
+            <h3><a href="index.php">webshop<span class="accent_color">.</span></a></h3>
+        </div>
+        
+        <div class="right_content">
+            <?php if($user->getRole() === 1): ?><a href="addproduct.php">add product</a><?php endif; ?>
+            <a href="logout.php">logout</a>
+        </div>
     </nav>
 
     <div class="products">

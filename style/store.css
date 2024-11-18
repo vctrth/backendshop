@@ -31,6 +31,9 @@ h3 a {
     /* width: 100%; */
 
     margin: 5em;
+    flex-wrap: wrap;
+
+    flex-grow: 1;
 }
 
 .product_container {

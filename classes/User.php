@@ -3,6 +3,7 @@ class User {
 
     private $username;
     private $password;
+    private $role = 1;
 
     /**
      * Get the value of username
@@ -88,5 +89,13 @@ class User {
 
             return false;
         }
+    }
+
+    /**
+     * Get the value of role
+     */ 
+    public function getRole()
+    {
+        return $this->role;
     }
 }
