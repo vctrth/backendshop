@@ -1,0 +1,31 @@
+.products {
+
+    display: flex;
+    flex-direction: row;
+
+    justify-content: center;
+
+    width: 100%;
+}
+
+.product_container {
+
+    display: flex;
+    flex-direction: column;
+
+    max-width: 300px;
+
+    align-items: start;
+    gap: 2px;
+
+    margin: 1em 1em;
+}
+
+.product_container p {
+    margin: 0;
+}
+
+.album_cover {
+
+    max-width: 100%;
+}

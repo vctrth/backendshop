@@ -2,6 +2,7 @@
 class Product {
 
     private $name;
+    private $artist;
     private $category_id;
     private $price;
     private $thumbnail;
@@ -105,5 +106,35 @@ class Product {
         $this->stock = $stock;
 
         return $this;
+    }
+
+    /**
+     * Get the value of artist
+     */ 
+    public function getArtist()
+    {
+        return $this->artist;
+    }
+
+    /**
+     * Set the value of artist
+     *
+     * @return  self
+     */ 
+    public function setArtist($artist)
+    {
+        $this->artist = $artist;
+
+        return $this;
+    }
+
+    public static function getAll(){
+
+        $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        $statement = $conn->prepare('SELECT * FROM tl_item');
+        $statement->execute();
+
+        $products = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $products;
     }
 }
