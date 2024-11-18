@@ -29,6 +29,7 @@ $products = Product::getAll();
 <body>
 
     <nav class="top_nav">
+        <h3><a href="index.php">webshop<span class="accent_color">.</span></a></h3>
         <a href="logout.php">logout</a>
     </nav>
 
@@ -37,7 +38,7 @@ $products = Product::getAll();
         <?php forEach($products as $product): ?>
             <div class="product_container">
                 <img src="images/<?php echo $product['thumbnail'] ?>.jpg" alt="" class="album_cover">
-                <p><?php echo $product['name'] ?></p>
+                <p><b><?php echo $product['name'] ?></b></p>
                 <p><span class="accent_color"><?php echo $product['artist'] ?></span></p>
                 <p>€<?php echo $product['price'] ?>.00</p>
             </div>
