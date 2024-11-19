@@ -8,6 +8,9 @@ if(isset($_SESSION["username"])){
 
     $user = new User();
     $user->setUsername($_SESSION['username']);
+
+    $role = $user->getUser()['role'];
+    // VAR_DUMP($role);
     // echo "Welcome ".$_SESSION["username"];
 }
 else {
@@ -40,7 +43,7 @@ $products = Product::getAll();
         </div>
         
         <div class="right_content">
-            <?php if($user->getRole() === 1): ?><a href="addproduct.php">add product</a><?php endif; ?>
+            <?php if($role === 1): ?><a href="addproduct.php">add product</a><?php endif; ?>
             <a href="logout.php">logout</a>
         </div>
     </nav>
@@ -52,7 +55,7 @@ $products = Product::getAll();
 
             <?php forEach($products as $product): ?>
                 <div class="product_container">
-                    <img src="images/<?php echo $product['thumbnail'] ?>.jpg" alt="" class="album_cover">
+                    <img src="<?php echo $product['thumbnail'] ?>" alt="" class="album_cover">
                     <p><b><?php echo $product['name'] ?></b></p>
                     <p><span class="accent_color"><?php echo $product['artist'] ?></span></p>
                     <p>€<?php echo $product['price'] ?>.00</p>

@@ -92,3 +92,27 @@ h2 {
 
     color: red;
 }
+
+.top_nav {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    align-items: center;
+
+    background-color: whitesmoke;
+
+    padding: 0 2em;
+}
+
+.top_nav h3 {
+    
+    font-size: 2em;
+}
+
+h3 a {
+
+    text-decoration: none;
+    color: black;
+}

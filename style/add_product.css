@@ -1,0 +1,54 @@
+.container {
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    margin: auto;
+    margin-top: 8em;
+
+    width: 50%;
+}
+
+.add_product_form{
+
+    justify-self: center;
+
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+
+    width: 100%;
+}
+
+input:not(.btn) {
+
+    outline: 0;
+    border-width: 0 0 1px 0;
+    border-color: lightgray;
+    
+    background-color: white;
+}
+
+input:not(.btn):focus {
+    
+    border-width: 0 0 2px 0;
+    border-color: var(--accent_green);
+}
+
+.btn {
+
+    margin-top: 1em;
+    padding: .5em;
+
+    border: none;
+    
+    background-color: var(--accent_green);
+    filter: saturate(.5);
+
+    transition: filter ease-out .1s;
+}
+.btn:hover{
+
+    filter: saturate(1);
+}

@@ -137,4 +137,29 @@ class Product {
         $products = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $products;
     }
+
+    public function save(){
+
+        $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+
+        // echo $password;
+        $query = $conn->prepare("
+        INSERT INTO tl_item(name, artist, price, thumbnail, stock)
+        VALUES (:name, :artist, :price, :thumbnail, :stock);
+        ");
+
+        $name = $this->getName();
+        $artist = $this->getArtist();
+        $price = $this->getPrice();
+        $thumbnail = $this->getThumbnail();
+        $stock = $this->getStock();
+
+        $query->bindValue(":name", $name);
+        $query->bindValue(":artist", $artist);
+        $query->bindValue(":price", $price);
+        $query->bindValue(":thumbnail", $thumbnail);
+        $query->bindValue(":stock", $stock);
+
+        $query->execute();
+    }
 }

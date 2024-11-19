@@ -3,7 +3,7 @@ class User {
 
     private $username;
     private $password;
-    private $role = 1;
+    private $role;
 
     /**
      * Get the value of username
@@ -97,5 +97,23 @@ class User {
     public function getRole()
     {
         return $this->role;
+    }
+
+    public function getUser(){
+        
+        $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+
+        $username = $this->getUsername();
+
+        $statement = $conn->prepare("
+        SELECT *
+        FROM tl_user
+        WHERE username = :username
+        ");
+
+        $statement->bindValue(":username", $username);
+        $statement->execute();
+    
+        return($statement->fetch(PDO::FETCH_ASSOC));
     }
 }
