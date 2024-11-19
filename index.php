@@ -25,6 +25,8 @@ $products = Product::getAll();
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home</title>
 
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style/store.css">
@@ -43,19 +45,20 @@ $products = Product::getAll();
         </div>
     </nav>
 
-    <h2><i>Welcome, <?php echo $_SESSION['username'] ?>!</i></h2>
+    <div class="container">
+        <h2><i>Welcome, <?php echo $_SESSION['username'] ?>!</i></h2>
 
-    <div class="products">
+        <div class="products">
 
-        <?php forEach($products as $product): ?>
-            <div class="product_container">
-                <img src="images/<?php echo $product['thumbnail'] ?>.jpg" alt="" class="album_cover">
-                <p><b><?php echo $product['name'] ?></b></p>
-                <p><span class="accent_color"><?php echo $product['artist'] ?></span></p>
-                <p>€<?php echo $product['price'] ?>.00</p>
-            </div>
-        <?php endforeach; ?>
-
+            <?php forEach($products as $product): ?>
+                <div class="product_container">
+                    <img src="images/<?php echo $product['thumbnail'] ?>.jpg" alt="" class="album_cover">
+                    <p><b><?php echo $product['name'] ?></b></p>
+                    <p><span class="accent_color"><?php echo $product['artist'] ?></span></p>
+                    <p>€<?php echo $product['price'] ?>.00</p>
+                </div>
+            <?php endforeach; ?>
+        </div>
 
         <!-- Example product -->
         <!-- <div class="product_container">

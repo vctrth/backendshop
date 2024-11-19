@@ -30,6 +30,8 @@ include_once(__DIR__. "/classes/User.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Log in</title>
 
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
 </head>

@@ -29,6 +29,8 @@ $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "ro
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sign up</title>
 
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
 </head>

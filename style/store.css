@@ -13,9 +13,9 @@
 
 h2 {
 
-    margin-left: 2em;
-    margin-top: 1.5em;
-    margin-bottom: 0;
+    /* margin-left: 2em; */
+    margin-top: 1.5em; 
+    margin-bottom: .6em;
     padding-left: 0;
 }
 
@@ -29,6 +29,12 @@ h3 a {
     color: black;
 }
 
+.container {
+
+    max-width: 80%;
+    margin: auto;
+}
+
 .products {
 
     display: flex;
@@ -38,7 +44,6 @@ h3 a {
 
     /* width: 100%; */
 
-    margin: 1.5em 5em;
     flex-wrap: wrap;
 
     flex-grow: 1;
@@ -56,13 +61,20 @@ h3 a {
 
     margin: 1em 1em;
 
-    transition: transform .1s ease-in-out; 
+    transition: all .15s ease-in-out; 
 }
 
-.product_container:hover {
+.products:hover .product_container{
 
-    transform: scale(1.1);
+    /* filter:blur(1.5px) brightness(.95); */
 }
+
+.products .product_container:hover {
+
+    transform: scale(1.05);
+    filter:none;
+}
+
 
 .product_container p {
     margin: 0;
