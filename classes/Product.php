@@ -1,4 +1,7 @@
 <?php
+
+include_once(__DIR__.'/Db.php');
+
 class Product {
 
     private $name;
@@ -130,7 +133,8 @@ class Product {
 
     public static function getAll(){
 
-        $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        $conn = Db::getConnection();
         $statement = $conn->prepare('SELECT * FROM tl_item');
         $statement->execute();
 
@@ -140,7 +144,8 @@ class Product {
 
     public function save(){
 
-        $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        $conn = Db::getConnection();
 
         // echo $password;
         $query = $conn->prepare("

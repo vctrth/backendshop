@@ -1,4 +1,7 @@
 <?php
+
+include_once(__DIR__.'/Db.php');
+
 class User {
 
     private $username;
@@ -47,7 +50,8 @@ class User {
 
     public function save(){
 
-        $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+    // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+    $conn = Db::getConnection();
 
         // echo $password;
         $query = $conn->prepare("
@@ -66,7 +70,8 @@ class User {
     public function login(){
 
         
-        $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        $conn = Db::getConnection();
 
         $username = $this->getUsername();
         $password = $this->getPassword();
@@ -101,7 +106,8 @@ class User {
 
     public function getUser(){
         
-        $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        $conn = Db::getConnection();
 
         $username = $this->getUsername();
 
