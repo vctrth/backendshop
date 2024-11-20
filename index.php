@@ -74,8 +74,17 @@ $products = Product::getAll();
 
             <?php forEach($products as $product): ?>
 
-                <?php if($product['genre'] === $_POST['genre'] || $_POST['genre'] === ''): ?>
-                
+                <?php if(isset($_POST['genre']) && ($_POST['genre'] === '' || $product['genre'] === $_POST['genre'])): ?>  
+                        <div class="product_container">
+                            <img src="<?php echo $product['thumbnail'] ?>" alt="" class="album_cover">
+                            <p><b><?php echo $product['name'] ?></b></p>
+                            <p><span class="accent_color"><?php echo $product['artist'] ?></span></p>
+                            <p>€<?php echo $product['price'] ?>.00</p>
+                        </div>
+                <?php endif; ?>
+
+                <?php if(!isset($_POST['genre'])): ?>
+
                     <div class="product_container">
                         <img src="<?php echo $product['thumbnail'] ?>" alt="" class="album_cover">
                         <p><b><?php echo $product['name'] ?></b></p>
@@ -96,6 +105,6 @@ $products = Product::getAll();
             <p>Only 2 left in stock!</p> 
         </div> -->
 
-    </div>  
+    </div> 
 </body>
 </html>

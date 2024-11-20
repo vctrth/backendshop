@@ -29,6 +29,7 @@ if(!empty($_POST)){
 
     $product->setName($_POST["name"]);
     $product->setArtist($_POST["artist"]);
+    $product->setGenre($_POST["genre"]);
     $product->setPrice($_POST["price"]);
     $product->setThumbnail($_POST["thumbnail"]);
     $product->setStock($_POST["stock"]);
@@ -76,6 +77,9 @@ if(!empty($_POST)){
 
             <label for="artist">Artist</label>
             <input type="text" id="artist" name="artist">
+
+            <label for="genre">Genre</label>
+            <input type="text" id="genre" name="genre">
 
             <label for="price">Price</label>
             <input type="number" id="price" name="price">

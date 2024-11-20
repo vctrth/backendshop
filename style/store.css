@@ -76,15 +76,18 @@ h2 {
 }
 
 #genre {
+    
     font-size: 1.2em;
-
+    
     appearance: none;
-
+    
     outline: 0;
-    border-width: 0 0 1px 0;
+    border-width: 0 0 2px 0;
     border-color: lightgray;
     
     background-color: white;
-
+    
     margin-right: 1em;
+
+    padding-right: 6px;
 } 
