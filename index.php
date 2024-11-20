@@ -51,15 +51,38 @@ $products = Product::getAll();
     <div class="container">
         <h2><i>Welcome, <?php echo $_SESSION['username'] ?>!</i></h2>
 
+        <div class="filters">
+
+            <form action="" method="post" class="filter_form">
+
+                <select name="genre" id="genre">
+                    <option value="" disabled selected>filter by genre</option>
+
+                    <option value="">all</option>
+
+                    <option value="shoegaze">Shoegaze</option>
+                    <option value="postpunk">Post-Punk</option>
+                    <option value="jazzrock">Jazz-Rock</option>
+                    <option value="rock">Rock</option>
+                </select>
+
+                <input type="submit" value="filter" class="btn">
+            </form>
+        </div>
+
         <div class="products">
 
             <?php forEach($products as $product): ?>
-                <div class="product_container">
-                    <img src="<?php echo $product['thumbnail'] ?>" alt="" class="album_cover">
-                    <p><b><?php echo $product['name'] ?></b></p>
-                    <p><span class="accent_color"><?php echo $product['artist'] ?></span></p>
-                    <p>€<?php echo $product['price'] ?>.00</p>
-                </div>
+
+                <?php if($product['genre'] === $_POST['genre'] || $_POST['genre'] === ''): ?>
+                
+                    <div class="product_container">
+                        <img src="<?php echo $product['thumbnail'] ?>" alt="" class="album_cover">
+                        <p><b><?php echo $product['name'] ?></b></p>
+                        <p><span class="accent_color"><?php echo $product['artist'] ?></span></p>
+                        <p>€<?php echo $product['price'] ?>.00</p>
+                    </div>
+                <?php endif; ?>
             <?php endforeach; ?>
         </div>
 
@@ -73,6 +96,6 @@ $products = Product::getAll();
             <p>Only 2 left in stock!</p> 
         </div> -->
 
-    </div>   
+    </div>  
 </body>
 </html>

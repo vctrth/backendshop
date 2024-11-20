@@ -6,6 +6,7 @@ class Product {
 
     private $name;
     private $artist;
+    private $genre;
     private $category_id;
     private $price;
     private $thumbnail;
@@ -149,18 +150,20 @@ class Product {
 
         // echo $password;
         $query = $conn->prepare("
-        INSERT INTO tl_item(name, artist, price, thumbnail, stock)
-        VALUES (:name, :artist, :price, :thumbnail, :stock);
+        INSERT INTO tl_item(name, artist, genre, price, thumbnail, stock)
+        VALUES (:name, :artist, :genre, :price, :thumbnail, :stock);
         ");
 
         $name = $this->getName();
         $artist = $this->getArtist();
+        $genre = $this->getGenre();
         $price = $this->getPrice();
         $thumbnail = $this->getThumbnail();
         $stock = $this->getStock();
 
         $query->bindValue(":name", $name);
         $query->bindValue(":artist", $artist);
+        $query->bindValue(":genre", $genre);
         $query->bindValue(":price", $price);
         $query->bindValue(":thumbnail", $thumbnail);
         $query->bindValue(":stock", $stock);
