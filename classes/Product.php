@@ -32,6 +32,23 @@ class Product {
         return $this;
     }
 
+    public function getGenre()
+    {
+        return $this->genre;
+    }
+
+    /**
+     * Set the value of name
+     *
+     * @return  self
+     */ 
+    public function setGenre($genre)
+    {
+        $this->genre = $genre;
+
+        return $this;
+    }
+
     /**
      * Get the value of category_id
      */ 
