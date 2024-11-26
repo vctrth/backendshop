@@ -2,6 +2,7 @@
 
 include_once(__DIR__. "/classes/Product.php");
 include_once(__DIR__. "/classes/User.php");
+include_once(__DIR__.'/settings/settings.php');
 
 session_start();
 if(isset($_SESSION["username"])){
@@ -18,7 +19,8 @@ else {
     header("Location: login.php");
 }
 
-$products = Product::getAll();
+if(!isset($_GET["genre"])){ $products = Product::getAll(); }
+else{ $products = Product::getProductsByGenre($_GET["genre"]);};
 
 ?>
 <!DOCTYPE html>
@@ -49,49 +51,25 @@ $products = Product::getAll();
     </nav>
 
     <div class="container">
-        <h2><i>Welcome, <?php echo $_SESSION['username'] ?>!</i></h2>
+        <h2><i>Welcome, <?php echo htmlspecialchars($_SESSION['username']) ?>!</i></h2>
 
         <div class="filters">
 
-            <form action="" method="post" class="filter_form">
-
-                <select name="genre" id="genre">
-                    <option value="" disabled selected>filter by genre</option>
-
-                    <option value="">all</option>
-
-                    <option value="shoegaze">Shoegaze</option>
-                    <option value="postpunk">Post-Punk</option>
-                    <option value="jazzrock">Jazz-Rock</option>
-                    <option value="rock">Rock</option>
-                </select>
-
-                <input type="submit" value="filter" class="btn">
-            </form>
+            <?php foreach(SETTINGS["genres"] as $genre): ?>
+                <a href="index.php?genre=<?php echo htmlspecialchars($genre) ?>"><?php echo htmlspecialchars($genre) ?></a>
+            <?php endforeach; ?>
         </div>
 
         <div class="products">
 
             <?php forEach($products as $product): ?>
 
-                <?php if(isset($_POST['genre']) && ($_POST['genre'] === '' || $product['genre'] === $_POST['genre'])): ?>  
-                        <div class="product_container">
-                            <img src="<?php echo $product['thumbnail'] ?>" alt="" class="album_cover">
-                            <p><b><?php echo $product['name'] ?></b></p>
-                            <p><span class="accent_color"><?php echo $product['artist'] ?></span></p>
-                            <p>€<?php echo $product['price'] ?>.00</p>
-                        </div>
-                <?php endif; ?>
-
-                <?php if(!isset($_POST['genre'])): ?>
-
-                    <div class="product_container">
-                        <img src="<?php echo $product['thumbnail'] ?>" alt="" class="album_cover">
-                        <p><b><?php echo $product['name'] ?></b></p>
-                        <p><span class="accent_color"><?php echo $product['artist'] ?></span></p>
-                        <p>€<?php echo $product['price'] ?>.00</p>
-                    </div>
-                <?php endif; ?>
+                <div class="product_container">
+                    <img src="<?php echo htmlspecialchars($product['thumbnail']) ?>" alt="" class="album_cover">
+                    <p><b><?php echo htmlspecialchars($product['name']) ?></b></p>
+                    <p><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></p>
+                    <p>€<?php echo htmlspecialchars($product['price']) ?>.00</p>
+                </div>
             <?php endforeach; ?>
         </div>
 

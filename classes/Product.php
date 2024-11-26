@@ -33,6 +33,7 @@ class Product {
     }
 
     public function getGenre()
+
     {
         return $this->genre;
     }
@@ -154,6 +155,18 @@ class Product {
         // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
         $conn = Db::getConnection();
         $statement = $conn->prepare('SELECT * FROM tl_item');
+        $statement->execute();
+
+        $products = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $products;
+    }
+
+    public static function getProductsByGenre($genre){
+
+        // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        $conn = Db::getConnection();
+        $statement = $conn->prepare('SELECT * FROM tl_item WHERE genre = :genre');
+        $statement->bindValue(":genre", $genre);
         $statement->execute();
 
         $products = $statement->fetchAll(PDO::FETCH_ASSOC);
