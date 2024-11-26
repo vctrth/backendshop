@@ -30,23 +30,34 @@ if(isset($_SESSION["username"])){
 
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/product_details.css">
 </head>
 <body>
     <nav class="top_nav">
 
-    <div class="left_content">
-        <h3><a href="index.php">webglørpp<span class="accent_color">.</span></a></h3>
-    </div>
+        <div class="left_content">
+            <h3><a href="index.php">webglørpp<span class="accent_color">.</span></a></h3>
+        </div>
 
-    <div class="right_content">
-        <?php if($role === 1): ?><a href="addproduct.php">add product</a><?php endif; ?>
-        <a href="logout.php">logout</a>
-    </div>
+        <div class="right_content">
+            <?php if($role === 1): ?><a href="addproduct.php">add product</a><?php endif; ?>
+            <a href="logout.php">logout</a>
+        </div>
     </nav>
     
-    <img src="<?php echo htmlspecialchars($product['thumbnail']) ?>" alt="" class="album_cover">
-    <p><b><?php echo htmlspecialchars($product['name']) ?></b></p>
-    <p><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></p>
-    <p>€<?php echo htmlspecialchars($product['price']) ?>.00</p>
+    <div class="container">
+
+        <div class="product_info">
+            <img src="<?php echo htmlspecialchars($product['thumbnail']) ?>" alt="" class="album_cover">
+            
+            <div class="right_content">
+                <h2 class="title"><b><?php echo htmlspecialchars($product['name']) ?></b></h2>
+                <h3 class="artist"><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></h3>
+                <p class="price"><b><?php echo htmlspecialchars($product['price']) ?> coins</b></p>
+                <p class="description"><?php echo htmlspecialchars($product['description']) ?> </p>
+                <a href="" class="btn">add to card</a>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

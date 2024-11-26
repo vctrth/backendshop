@@ -11,6 +11,12 @@ body {
     /* background-color: #F2F1EF; */
 }
 
+.container {
+
+    max-width: 80%;
+    margin: auto;
+}
+
 h1 {
 
     /* position: relative; */

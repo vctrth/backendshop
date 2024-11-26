@@ -59,6 +59,9 @@ else{ $products = Product::getProductsByGenre($_GET["genre"]);};
     <div class="container">
         <h2><i>Welcome, <?php echo htmlspecialchars($_SESSION['username']) ?>!</i></h2>
 
+        <label for="searchbar"></label>
+        <input type="text" name="" id="searchbar" onchange="console.log('changed')" placeholder="Search for an artist, album or description">
+
         <div class="filter_container">
 
             <div class="filters">
