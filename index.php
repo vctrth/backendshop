@@ -7,7 +7,7 @@ include_once(__DIR__.'/settings/settings.php');
 session_start();
 if(isset($_SESSION["username"])){
 
-    $user = new User();
+    // $user = new User();
     // $user->setUsername($_SESSION['username']);
     // $role = $user->getUser()['role'];
 
