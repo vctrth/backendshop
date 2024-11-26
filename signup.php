@@ -42,7 +42,7 @@ $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "ro
         
         <form action="" method="post" class="login_form">
 
-            <h1>webshop<span class="accent_color">.</span></h1>
+            <h1>webglørpp<span class="accent_color">.</span></h1>
             <h2><i>Sign up</i></h2>
 
             <?php if(isset($error)): ?>

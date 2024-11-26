@@ -173,6 +173,18 @@ class Product {
         return $products;
     }
 
+    public static function getProductByID($id){
+
+        // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        $conn = Db::getConnection();
+        $statement = $conn->prepare('SELECT * FROM tl_item WHERE id = :id');
+        $statement->bindValue(":id", $id);
+        $statement->execute();
+
+        $products = $statement->fetch();
+        return $products;
+    }
+
     public function save(){
 
         // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");

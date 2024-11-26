@@ -39,7 +39,7 @@ include_once(__DIR__. "/classes/User.php");
     <div class="login_card">
         
         <form action="" method="post" class="login_form">
-            <h1>webshop<span class="accent_color">.</span></h1>
+            <h1>webglørpp<span class="accent_color">.</span></h1>
             <h2><i>Login</i></h2>
             
 
