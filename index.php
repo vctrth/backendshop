@@ -13,6 +13,7 @@ if(isset($_SESSION["username"])){
 
     $user = User::sGetUser($_SESSION['username']);
     $role = $user['role'];
+    $coins = $user['coins'];
     // VAR_DUMP($role);
     // echo "Welcome ".$_SESSION["username"];
 }
@@ -47,7 +48,9 @@ else{ $products = Product::getProductsByGenre($_GET["genre"]);};
         </div>
         
         <div class="right_content">
-            <?php if($role === 1): ?><a href="addproduct.php">add product</a><?php endif; ?>
+            <a href="" style="text-decoration:none; color: black;">coins: <?php echo $coins ?></a>
+
+            <?php if($role === 1): ?><a href="add_product.php">add product</a><?php endif; ?>
             <a href="profile.php">profile</a>
             <a href="logout.php">logout</a>
         </div>
@@ -78,7 +81,7 @@ else{ $products = Product::getProductsByGenre($_GET["genre"]);};
                     <img src="<?php echo htmlspecialchars($product['thumbnail']) ?>" alt="" class="album_cover">
                     <p><b><?php echo htmlspecialchars($product['name']) ?></b></p>
                     <p><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></p>
-                    <p>€<?php echo htmlspecialchars($product['price']) ?>.00</p>
+                    <p><?php echo htmlspecialchars($product['price']) ?> coins</p>
                 </div>
             <?php endforeach; ?>
         </div>

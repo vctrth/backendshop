@@ -30,6 +30,7 @@ else {
 
     <link rel="stylesheet" href="normalize.css">
     <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style/profile.css">
 </head>
 <body>
     <nav class="top_nav">
@@ -44,34 +45,39 @@ else {
         </div>
     </nav>
     
+    <div class="container">
 
-    <h2><i>Welcome, <?php echo htmlspecialchars($user ->getUsername()) ?></i></h2>
+        <h2><i>Welcome, <?php echo htmlspecialchars($user ->getUsername()) ?></i></h2>
 
-    <section class="orders_container">
+        <div class="box">
+            <section class="orders_container">
 
-        <h3>Orders</h3>
+                <h3>Orders</h3>
 
-        <div class="orders">
-            <div class="order">
+                <div class="orders">
+                    <div class="order">
 
-                <div class="product_container">
+                        <div class="product_container">
 
-                    <img src="images/mgu.jpg" alt=""  class="album_cover">
-                    <div class="textbox">
-                        <p>MG ULTRA<p>
-                        <p><span class="accent_color">Machine Girl</span></p>
-                        <p>€25.00</p>
+                            <img src="images/mgu.jpg" alt=""  class="album_cover">
+                            <div class="textbox">
+                                <p><b>MG ULTRA</b><p>
+                                <p><span class="accent_color">Machine Girl</span></p>
+                                <p>250 coins</p>
+                            </div>
+                        </div>      
                     </div>
-                </div>      
-            </div>
+                </div>
+            </section>
+
+            <section class="account_control">
+        
+                <h3>Account control</h3>
+                <a href="#">change password</a>
+                <a href="logout.php">logout</a>
+            </section>
         </div>
-    </section>
+    </div>
 
-    <section class="account_control">
-
-        <h3>Account control</h3>
-        <a href="#">change password</a>
-        <a href="logout.php">logout</a>
-    </section>
 </body>
 </html>
