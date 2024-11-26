@@ -8,9 +8,11 @@ session_start();
 if(isset($_SESSION["username"])){
 
     $user = new User();
-    $user->setUsername($_SESSION['username']);
+    // $user->setUsername($_SESSION['username']);
+    // $role = $user->getUser()['role'];
 
-    $role = $user->getUser()['role'];
+    $user = User::sGetUser($_SESSION['username']);
+    $role = $user['role'];
     // VAR_DUMP($role);
     // echo "Welcome ".$_SESSION["username"];
 }
@@ -54,11 +56,18 @@ else{ $products = Product::getProductsByGenre($_GET["genre"]);};
     <div class="container">
         <h2><i>Welcome, <?php echo htmlspecialchars($_SESSION['username']) ?>!</i></h2>
 
-        <div class="filters">
+        <div class="filter_container">
 
-            <?php foreach(SETTINGS["genres"] as $genre): ?>
-                <a href="index.php?genre=<?php echo htmlspecialchars($genre) ?>"><?php echo htmlspecialchars($genre) ?></a>
-            <?php endforeach; ?>
+            <div class="filters">
+
+                <?php foreach(SETTINGS["genres"] as $genre): ?>
+                    <a href="index.php?genre=<?php echo htmlspecialchars($genre) ?>"><?php echo htmlspecialchars($genre) ?></a>
+                <?php endforeach; ?>
+            </div>
+
+            <?php if(isset($_GET['genre'])): ?>
+                <a href="index.php">reset filter</a>
+            <?php endif; ?>
         </div>
 
         <div class="products">

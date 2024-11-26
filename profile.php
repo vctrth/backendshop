@@ -46,5 +46,32 @@ else {
     
 
     <h2><i>Welcome, <?php echo htmlspecialchars($user ->getUsername()) ?></i></h2>
+
+    <section class="orders_container">
+
+        <h3>Orders</h3>
+
+        <div class="orders">
+            <div class="order">
+
+                <div class="product_container">
+
+                    <img src="images/mgu.jpg" alt=""  class="album_cover">
+                    <div class="textbox">
+                        <p>MG ULTRA<p>
+                        <p><span class="accent_color">Machine Girl</span></p>
+                        <p>€25.00</p>
+                    </div>
+                </div>      
+            </div>
+        </div>
+    </section>
+
+    <section class="account_control">
+
+        <h3>Account control</h3>
+        <a href="#">change password</a>
+        <a href="logout.php">logout</a>
+    </section>
 </body>
 </html>

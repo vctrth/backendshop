@@ -7,6 +7,7 @@ class User {
     private $username;
     private $password;
     private $role;
+    private $coins;
 
     /**
      * Get the value of username
@@ -54,10 +55,7 @@ class User {
     $conn = Db::getConnection();
 
         // echo $password;
-        $query = $conn->prepare("
-        INSERT INTO tl_user(username, password, role)
-        VALUES (:username, :password, 0);
-        ");
+        $query = $conn->prepare('INSERT INTO tl_user(username, password, role) VALUES (:username, :password, 0);');
 
         $username = $this->getUsername();
         $password = $this->getPassword();
@@ -111,15 +109,44 @@ class User {
 
         $username = $this->getUsername();
 
-        $statement = $conn->prepare("
-        SELECT *
-        FROM tl_user
-        WHERE username = :username
-        ");
+        $statement = $conn -> prepare('SELECT * FROM tl_user WHERE username = :username');
 
         $statement->bindValue(":username", $username);
         $statement->execute();
     
         return($statement->fetch(PDO::FETCH_ASSOC));
+    }
+
+    public static function sGetUser($username){
+        
+        // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        $conn = Db::getConnection();
+
+        $statement = $conn -> prepare('SELECT * FROM tl_user WHERE username = :username');
+
+        $statement->bindValue(":username", $username);
+        $statement->execute();
+    
+        return($statement->fetch(PDO::FETCH_ASSOC));
+    }
+
+    /**
+     * Get the value of coins
+     */ 
+    public function getCoins()
+    {
+        return $this->coins;
+    }
+
+    /**
+     * Set the value of coins
+     *
+     * @return  self
+     */ 
+    public function setCoins($coins)
+    {
+        $this->coins = $coins;
+
+        return $this;
     }
 }
