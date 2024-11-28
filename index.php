@@ -92,6 +92,7 @@ if(isset($_GET["search"])){
                     <p><b><?php echo htmlspecialchars($product['name']) ?></b></p>
                     <p><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></p>
                     <p><?php echo htmlspecialchars($product['price']) ?> coins</p>
+                    <a href="delete_item.php?id=<?php echo $product['id'] ?>" >delete item</a>
                 </div>
             <?php endforeach; ?>
         </div>

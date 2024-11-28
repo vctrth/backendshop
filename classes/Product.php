@@ -179,7 +179,7 @@ class Product {
         $conn = Db::getConnection();
 
         $query = "%".$query."%"; // This allows the search to find any part of the column value that contains the query.
-        
+
         $statement = $conn->prepare("SELECT * FROM tl_item WHERE name LIKE :query OR artist LIKE :query OR description LIKE :query");
         $statement->bindValue(":query", $query);
         $statement->execute();
@@ -204,26 +204,38 @@ class Product {
 
         // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
         $conn = Db::getConnection();
-
+        
         // echo $password;
         $query = $conn->prepare("
         INSERT INTO tl_item(name, artist, genre, price, thumbnail, stock)
         VALUES (:name, :artist, :genre, :price, :thumbnail, :stock);
         ");
-
+        
         $name = $this->getName();
         $artist = $this->getArtist();
         $genre = $this->getGenre();
         $price = $this->getPrice();
         $thumbnail = $this->getThumbnail();
         $stock = $this->getStock();
-
+        
         $query->bindValue(":name", $name);
         $query->bindValue(":artist", $artist);
         $query->bindValue(":genre", $genre);
         $query->bindValue(":price", $price);
         $query->bindValue(":thumbnail", $thumbnail);
         $query->bindValue(":stock", $stock);
+        
+        $query->execute();
+    }
+    
+    public static function deleteItemById($id){
+        
+        $conn = Db::getConnection();
+
+        if($id === ""){return;};
+
+        $query = $conn->prepare("DELETE FROM tl_item WHERE id = :givenId");
+        $query->bindValue(":givenId", $id);
 
         $query->execute();
     }
