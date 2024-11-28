@@ -309,7 +309,7 @@ class Product {
         $statement = $conn->prepare("SELECT DISTINCT genre FROM tl_item");
         $statement->execute();
 
-        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
     }
 }

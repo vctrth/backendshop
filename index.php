@@ -30,7 +30,6 @@ if(isset($_GET["search"])){
 };
 
 $genres = Product::getGenres();
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -54,7 +53,6 @@ $genres = Product::getGenres();
         </div>
         
         <div class="right_content">
-            <a href="" style="text-decoration:none; color: black;">coins: <?php echo $coins ?></a>
 
             <?php if($role === 1): ?><a href="add_product.php">add product</a><?php endif; ?>
             <a href="profile.php">profile</a>
@@ -63,7 +61,9 @@ $genres = Product::getGenres();
     </nav>
 
     <div class="container">
+
         <h2><i>Welcome, <?php echo htmlspecialchars($_SESSION['username']) ?>!</i></h2>
+        <h3 class="accent_color">coins: <?php echo $coins ?></h3>
 
         <label for="searchbar"></label>
         <input type="text" name="" id="searchbar" onchange="
@@ -76,7 +76,7 @@ $genres = Product::getGenres();
             <div class="filters">
 
                 <?php foreach($genres as $genre): ?>
-                    <a href="index.php?genre=<?php echo htmlspecialchars($genre) ?>"><?php echo htmlspecialchars($genre) ?></a>
+                    <a href="index.php?genre=<?php echo htmlspecialchars($genre['genre']) ?>"><?php echo htmlspecialchars($genre['genre']) ?></a>
                 <?php endforeach; ?>
             </div>
 
