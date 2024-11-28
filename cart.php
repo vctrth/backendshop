@@ -2,6 +2,7 @@
 
 include_once(__DIR__. "/classes/Product.php");
 include_once(__DIR__. "/classes/User.php");
+include_once(__DIR__. "/classes/Order.php");
 
 session_start();
 if(isset($_SESSION["username"])){
@@ -28,6 +29,11 @@ forEach($cartItems as $id){
 
     $product = Product::getProductByID($id);
     array_push($products, $product);
+}
+
+if(!empty($_GET['ordered'])){
+
+    Order::getAll($user['id']);
 }
 ?>
 <!DOCTYPE html>
@@ -68,6 +74,8 @@ forEach($cartItems as $id){
         <p><?php echo htmlspecialchars($product['price']) ?> coins</p>
     </div>
 <?php endforeach; ?>
+
+<a href="cart.php?ordered=true">order</a>
 </div>
 </body>
 </html>

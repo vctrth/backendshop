@@ -1,26 +1,32 @@
 <?php
 include_once(__DIR__. "/classes/User.php");
+session_start();
 
-    if(!empty($_POST)){
+if(!empty($_POST)){
 
-        $user = new User();
+    $user = new User();
 
-        $user->setUsername($_POST['username']);
-        $user->setPassword($_POST['password']);
+    $user->setUsername($_POST['username']);
+    $user->setPassword($_POST['password']);
 
-        if ($user->login()){
+    if ($user->login()){
 
-            //LOGIN
-            session_start();
-            $_SESSION["username"] = $user->getUsername();
-            header("Location: index.php");
-        }
-        else {
-
-            //NO LOGIN
-            $error = true;
-        }
+        //LOGIN
+        session_start();
+        $_SESSION["username"] = $user->getUsername();
+        header("Location: index.php");
     }
+    else {
+
+        //NO LOGIN
+        $error = true;
+    }
+}
+
+if(isset($_SESSION["username"])){
+
+    header("Location: index.php");
+}
 ?>
 
 <!DOCTYPE html>
