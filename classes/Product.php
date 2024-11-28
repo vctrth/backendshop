@@ -302,4 +302,14 @@ class Product {
 
         return $this;
     }
+
+    public static function getGenres(){
+
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT DISTINCT genre FROM tl_item");
+        $statement->execute();
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+        return $result;
+    }
 }

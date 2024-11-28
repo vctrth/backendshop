@@ -29,6 +29,8 @@ if(isset($_GET["search"])){
     $products = Product::getProductsBySearch($_GET["search"]);
 };
 
+$genres = Product::getGenres();
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -73,7 +75,7 @@ if(isset($_GET["search"])){
 
             <div class="filters">
 
-                <?php foreach(SETTINGS["genres"] as $genre): ?>
+                <?php foreach($genres as $genre): ?>
                     <a href="index.php?genre=<?php echo htmlspecialchars($genre) ?>"><?php echo htmlspecialchars($genre) ?></a>
                 <?php endforeach; ?>
             </div>

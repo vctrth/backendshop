@@ -9,12 +9,5 @@ const  SETTINGS = [
         "password" => "root",
         "host" => "localhost",
         "port" => 8889
-    ],
-    "genres" => [
-        "shoegaze",
-        "postpunk",
-        "jazzrock",
-        "rock",
-        "pop"
     ]
 ];
