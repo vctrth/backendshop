@@ -40,7 +40,7 @@ else {
         </div>
 
         <div class="right_content">
-            <?php if($role === 1): ?><a href="addproduct.php">add product</a><?php endif; ?>
+            <?php if($role === 1): ?><a href="add_product.php">add product</a><?php endif; ?>
             <a href="logout.php">logout</a>
         </div>
     </nav>

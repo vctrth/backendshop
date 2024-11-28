@@ -59,7 +59,7 @@ if(!empty($_POST)){
     <nav class="top_nav">
 
         <div class="left_content">
-            <h3><a href="index.php">webshop<span class="accent_color">.</span></a></h3>
+            <h3><a href="index.php">webglørpp<span class="accent_color">.</span></a></h3>
         </div>
 
         <div class="right_content">

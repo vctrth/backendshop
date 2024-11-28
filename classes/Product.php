@@ -172,6 +172,21 @@ class Product {
         $products = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $products;
     }
+    
+    public static function getProductsBySearch($query){
+        
+        
+        $conn = Db::getConnection();
+
+        $query = "%".$query."%"; // This allows the search to find any part of the column value that contains the query.
+        
+        $statement = $conn->prepare("SELECT * FROM tl_item WHERE name LIKE :query OR artist LIKE :query OR description LIKE :query");
+        $statement->bindValue(":query", $query);
+        $statement->execute();
+        
+        $products = $statement->fetchAll(PDO::FETCH_ASSOC);
+        return $products;
+    }
 
     public static function getProductByID($id){
 

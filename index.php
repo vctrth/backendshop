@@ -25,6 +25,10 @@ else {
 if(!isset($_GET["genre"])){ $products = Product::getAll(); }
 else{ $products = Product::getProductsByGenre($_GET["genre"]);};
 
+if(isset($_GET["search"])){
+    $products = Product::getProductsBySearch($_GET["search"]);
+};
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -60,7 +64,10 @@ else{ $products = Product::getProductsByGenre($_GET["genre"]);};
         <h2><i>Welcome, <?php echo htmlspecialchars($_SESSION['username']) ?>!</i></h2>
 
         <label for="searchbar"></label>
-        <input type="text" name="" id="searchbar" onchange="console.log('changed')" placeholder="Search for an artist, album or description">
+        <input type="text" name="" id="searchbar" onchange="
+            window.location.href=`index.php?search=${document.querySelector('#searchbar').value}`"
+            placeholder='Search for an artist, album or description'
+        >
 
         <div class="filter_container">
 
@@ -71,7 +78,7 @@ else{ $products = Product::getProductsByGenre($_GET["genre"]);};
                 <?php endforeach; ?>
             </div>
 
-            <?php if(isset($_GET['genre'])): ?>
+            <?php if(isset($_GET['genre']) || isset($_GET['search'])): ?>
                 <a href="index.php">reset filter</a>
             <?php endif; ?>
         </div>

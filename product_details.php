@@ -40,7 +40,7 @@ if(isset($_SESSION["username"])){
         </div>
 
         <div class="right_content">
-            <?php if($role === 1): ?><a href="addproduct.php">add product</a><?php endif; ?>
+            <?php if($role === 1): ?><a href="add_product.php">add product</a><?php endif; ?>
             <a href="logout.php">logout</a>
         </div>
     </nav>
@@ -55,7 +55,7 @@ if(isset($_SESSION["username"])){
                 <h3 class="artist"><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></h3>
                 <p class="price"><b><?php echo htmlspecialchars($product['price']) ?> coins</b></p>
                 <p class="description"><?php echo htmlspecialchars($product['description']) ?> </p>
-                <a href="" class="btn">add to card</a>
+                <a href="" class="btn">add to cart</a>
             </div>
         </div>
     </div>
