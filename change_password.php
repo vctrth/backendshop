@@ -17,7 +17,7 @@ if(!empty($_POST)){
     $userInst->setPassword($user["password"]);
     var_dump($userInst);
 
-    $result = $userInst->changePassword($_POST['oldPassword'], $_POST['newPassword'], $user['password']);
+    $result = $userInst->changePassword($_POST['oldPassword'], $_POST['newPassword']);
     if(!$result){
 
         $error = true;
