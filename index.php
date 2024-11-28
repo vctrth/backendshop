@@ -2,7 +2,6 @@
 
 include_once(__DIR__. "/classes/Product.php");
 include_once(__DIR__. "/classes/User.php");
-include_once(__DIR__.'/settings/settings.php');
 
 session_start();
 if(isset($_SESSION["username"])){
@@ -55,6 +54,7 @@ $genres = Product::getGenres();
         <div class="right_content">
 
             <?php if($role === 1): ?><a href="add_product.php">add product</a><?php endif; ?>
+            <a href="cart.php">cart</a>
             <a href="profile.php">profile</a>
             <a href="logout.php">logout</a>
         </div>

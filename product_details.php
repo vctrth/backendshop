@@ -17,6 +17,22 @@ if(isset($_SESSION["username"])){
     // echo "Welcome ".$_SESSION["username"];
 }
 
+if(!empty($_GET['add_to_cart'])){
+
+    if(!isset($_SESSION['cart'])){
+                    
+        $_SESSION['cart'] = [];
+        $_SESSION['cart'].push($_GET['add_to_cart']);
+        header('Location: cart.php');
+    }
+    
+    else {
+        
+        array_push($_SESSION['cart'], $_GET['add_to_cart']);
+        header('Location: cart.php');
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -58,7 +74,7 @@ if(isset($_SESSION["username"])){
                 <?php if(!empty($product['description'])): ?>
                     <p class="description"><?php echo htmlspecialchars($product['description']) ?> </p>
                 <?php endif; ?>
-                <a href="" class="btn">add to cart</a>
+                <a href="product_details.php?id=<?php echo $product['id']?>&add_to_cart=<?php echo $product['id']?>" class="btn">add to cart</a>
             </div>
         </div>
     </div>
