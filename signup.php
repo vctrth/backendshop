@@ -16,6 +16,8 @@ $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "ro
             $user->setUsername($_POST["username"]);
             $user->setPassword(password_hash($_POST["password"], PASSWORD_DEFAULT, $options));
             $user->save();
+
+            header("Location: index.php");
         }
         else {
 

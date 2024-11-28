@@ -94,6 +94,33 @@ class User {
         }
     }
 
+public function changePassword($oldPassword, $newPassword){
+
+        // $user = $this->getUser();
+        $hash = $this->getPassword();
+        var_dump($oldPassword);
+        if(password_verify($oldPassword, $hash)){
+            
+            $options = [
+
+                "cost" => 12
+            ];
+            $this->setPassword(password_hash($newPassword, PASSWORD_DEFAULT, $options));
+
+            $conn = Db::getConnection();
+            $query = $conn->prepare('UPDATE tl_user SET password = :password WHERE username = :username');
+            $query->bindValue(":username", $this->getUsername());
+            $query->bindValue(":password", $this->getPassword());
+            $query->execute();
+
+            return true;
+        }
+        else{
+
+            return false;
+        }
+    }
+
     /**
      * Get the value of role
      */ 

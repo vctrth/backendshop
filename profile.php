@@ -73,7 +73,7 @@ else {
             <section class="account_control">
         
                 <h3>Account control</h3>
-                <a href="#">change password</a>
+                <a href="change_password.php">change password</a>
                 <a href="logout.php">logout</a>
             </section>
         </div>
