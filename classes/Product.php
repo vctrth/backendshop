@@ -7,6 +7,7 @@ class Product {
     private $name;
     private $artist;
     private $genre;
+    private $description;
     private $category_id;
     private $price;
     private $thumbnail;
@@ -207,23 +208,65 @@ class Product {
         
         // echo $password;
         $query = $conn->prepare("
-        INSERT INTO tl_item(name, artist, genre, price, thumbnail, stock)
-        VALUES (:name, :artist, :genre, :price, :thumbnail, :stock);
+        INSERT INTO tl_item(name, artist, description, genre, price, thumbnail, stock)
+        VALUES (:name, :artist, :description, :genre, :price, :thumbnail, :stock);
         ");
         
         $name = $this->getName();
         $artist = $this->getArtist();
+        $description = $this->getDescription();
         $genre = $this->getGenre();
-        $price = $this->getPrice();
+        $price = floatval($this->getPrice());
         $thumbnail = $this->getThumbnail();
-        $stock = $this->getStock();
+        $stock = intval($this->getStock());
         
         $query->bindValue(":name", $name);
         $query->bindValue(":artist", $artist);
+        $query->bindValue(":description", $description);
         $query->bindValue(":genre", $genre);
         $query->bindValue(":price", $price);
         $query->bindValue(":thumbnail", $thumbnail);
         $query->bindValue(":stock", $stock);
+        
+        $query->execute();
+    }
+
+    public function update($selectedId){
+
+        // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
+        $conn = Db::getConnection();
+        
+        // echo $password;
+        $query = $conn->prepare("
+        UPDATE tl_item
+
+        SET
+            name = :name,
+            artist = :artist,
+            description = :description,
+            genre = :genre,
+            price = :price,
+            thumbnail = :thumbnail,
+            stock = :stock
+        WHERE id = :selectedId
+        ");
+        
+        $name = $this->getName();
+        $artist = $this->getArtist();
+        $description = $this->getDescription();
+        $genre = $this->getGenre();
+        $price = floatval($this->getPrice());
+        $thumbnail = $this->getThumbnail();
+        $stock = intval($this->getStock());
+        
+        $query->bindValue(":name", $name);
+        $query->bindValue(":artist", $artist);
+        $query->bindValue(":description", $description);
+        $query->bindValue(":genre", $genre);
+        $query->bindValue(":price", $price);
+        $query->bindValue(":thumbnail", $thumbnail);
+        $query->bindValue(":stock", $stock);
+        $query->bindValue(":selectedId",  $selectedId);
         
         $query->execute();
     }
@@ -238,5 +281,25 @@ class Product {
         $query->bindValue(":givenId", $id);
 
         $query->execute();
+    }
+
+    /**
+     * Get the value of description
+     */ 
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the value of description
+     *
+     * @return  self
+     */ 
+    public function setDescription($description)
+    {
+        $this->description = $description;
+
+        return $this;
     }
 }

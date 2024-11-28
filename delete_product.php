@@ -24,7 +24,7 @@ else {
 }
 
 
-if(isset($_GET["id"]) and $_GET['id'] != ""){
+if(isset($_GET["id"]) and !empty($_GET['id'])){
 
     Product::deleteItemById($_GET["id"]);
     header("Location: index.php");

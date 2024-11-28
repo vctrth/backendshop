@@ -36,10 +36,11 @@ if(!empty($_POST)){
     $product->setStock($_POST["stock"]);
     // $product->setArtist($_POST["artist"]);
 
-    $product->save();
+    $product->update($_GET['id']);
     header("Location: index.php"); 
 }
 
+$selectedProduct = Product::getProductByID($_GET['id']);
 
 ?>
 <!DOCTYPE html>
@@ -74,27 +75,27 @@ if(!empty($_POST)){
         <form action="" method="post" class="add_product_form">
 
             <label for="name">Name</label>
-            <input type="text" id="name" name="name">
+            <input type="text" id="name" name="name" value= '<?php echo $selectedProduct['name']?>'>
 
             <label for="artist">Artist</label>
-            <input type="text" id="artist" name="artist">
+            <input type="text" id="artist" name="artist" value= '<?php echo $selectedProduct['artist']?>'>
 
             <label for="description">Description</label>
-            <input type="text" id="description" name="description">
+            <input type="text" id="description" name="description" value= '<?php echo $selectedProduct['description']?>'>
 
             <label for="genre">Genre</label>
-            <input type="text" id="genre" name="genre">
+            <input type="text" id="genre" name="genre" value= '<?php echo $selectedProduct['genre']?>'>
 
             <label for="price">Price</label>
-            <input type="number" id="price" name="price">
+            <input type="number" id="price" name="price" value= '<?php echo $selectedProduct['price']?>'>
 
             <label for="thumbnail">Thumbnail</label>
-            <input type="text" id="thumbnail" name="thumbnail">
+            <input type="text" id="thumbnail" name="thumbnail" value= '<?php echo $selectedProduct['thumbnail']?>'>
 
             <label for="stock">Stock</label>
-            <input type="text" id="stock" name="stock">
+            <input type="text" id="stock" name="stock" value= '<?php echo $selectedProduct['stock']?>'>
 
-            <input type="submit" value="add" class="btn">
+            <input type="submit" value="edit" class="btn">
         </form>
     </div>
 </body>

@@ -54,7 +54,10 @@ if(isset($_SESSION["username"])){
                 <h2 class="title"><b><?php echo htmlspecialchars($product['name']) ?></b></h2>
                 <h3 class="artist"><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></h3>
                 <p class="price"><b><?php echo htmlspecialchars($product['price']) ?> coins</b></p>
-                <p class="description"><?php echo htmlspecialchars($product['description']) ?> </p>
+
+                <?php if(!empty($product['description'])): ?>
+                    <p class="description"><?php echo htmlspecialchars($product['description']) ?> </p>
+                <?php endif; ?>
                 <a href="" class="btn">add to cart</a>
             </div>
         </div>
