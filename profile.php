@@ -62,7 +62,7 @@ $orders = Order::getAll($user_id);
 
                 <div class="orders">
 
-                    <?php foreach($orders as $order): ?>                    
+                    <?php foreach(array_reverse($orders) as $order): ?>                    
                         <div class="order">
 
                             <h2 class="accent_color"><?php echo $order['date_of_order'] ?></h2>

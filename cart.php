@@ -30,15 +30,18 @@ if(!empty($_SESSION['cart'])){
     $products = array();
     forEach($cartItems as $product){
 
-        // var_dump(gettype($product));
         $cProduct = Product::getProductByID($product['item_id']);
         array_push($products, $cProduct);
     }
+
+    var_dump($cartItems);
 }
 
 if(!empty($_GET['ordered'])){
 
-    Order::getAll($user['id']);
+    Order::addToOrder($_SESSION['cart'], $user['id']);
+    $_SESSION['cart'] = [];
+    // Order::getAll($user['id']);
 }
 ?>
 <!DOCTYPE html>
@@ -78,7 +81,9 @@ if(!empty($_GET['ordered'])){
         <p><b><?php echo htmlspecialchars($product['name']) ?></b></p>
         <p><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></p>
         <p><?php echo htmlspecialchars($product['price']) ?> coins</p>
-        <p>Quantity: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity']) ?> Total price: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity'] * $product['price']) ?></p>
+        <?php if(isset($cartItems['product_'.$key]['quantity'])): ?>
+            <p>Quantity: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity']) ?> Total price: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity'] * $product['price']) ?></p>
+        <?php endif; ?>
     </div>
 <?php endforeach; ?>
 <?php endif; ?>

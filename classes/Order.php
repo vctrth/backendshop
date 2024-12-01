@@ -188,7 +188,31 @@ class Order {
         return $result;
     }
 
-    public static function addToOrder(){
+    public static function addToOrder($orderArray, $user){
         
+        $conn = Db::getConnection();
+
+        $statement = $conn->prepare('INSERT INTO tl_order(user_id, date_of_order) VALUES (:user_id, :doo)');
+        $statement->bindValue(':user_id', $user);
+        $statement->bindValue(':doo', date("Y-m-d h:i:s"));
+        $statement->execute();
+        $last_id = $conn->lastInsertId();
+
+        foreach($orderArray as $i => $order){
+
+            $statement = $conn->prepare('INSERT INTO tl_itemorder(item_id, order_id, quantity, variation_id) VALUES (:item_id, :order_id, :quantity, 1)');
+            $statement->bindValue(':item_id', $order['item_id']);
+            $statement->bindValue(':order_id', $last_id);
+            if(isset($order['quantity'])){
+                
+                $statement->bindValue(':quantity', $order['quantity']);
+            }
+            else {
+                
+                $statement->bindValue(':quantity', 1);
+            }
+
+            $statement->execute();
+        }
     }
 }
