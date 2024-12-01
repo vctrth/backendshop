@@ -188,7 +188,7 @@ class Order {
         return $result;
     }
 
-    public static function addOrder(){
+    public static function addToOrder(){
         
     }
 }

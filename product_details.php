@@ -7,6 +7,19 @@ include_once(__DIR__.'/settings/settings.php');
 $product = Product::getProductByID($_GET['id']);
 
 session_start();
+
+//functions
+function checkNestedArrays(){
+            
+    foreach($_SESSION['cart'] as $i => $product){
+
+        if((in_array($_GET['add_to_cart'], $_SESSION['cart'][$i]))){
+
+            return $i;
+        }
+    }
+}
+
 if(isset($_SESSION["username"])){
 
     $user = new User();
@@ -22,14 +35,39 @@ if(!empty($_GET['add_to_cart'])){
     if(!isset($_SESSION['cart'])){
                     
         $_SESSION['cart'] = [];
-        $_SESSION['cart'].push($_GET['add_to_cart']);
+        $_SESSION['cart']['product_'.count($_SESSION['cart'])] = [
+
+            'item_id' =>  $_GET['add_to_cart']
+        ];
         header('Location: cart.php');
     }
     
     else {
         
-        array_push($_SESSION['cart'], $_GET['add_to_cart']);
-        header('Location: cart.php');
+        if(checkNestedArrays()){
+
+            $position = checkNestedArrays();
+            var_dump($_SESSION['cart']);
+
+            if(isset($_SESSION['cart'][$position]['quantity'])){
+
+                $_SESSION['cart'][$position]['quantity']  ++;
+                header('Location: cart.php');
+            }
+            else {
+
+                $_SESSION['cart'][$position]['quantity']  = 2;
+                header('Location: cart.php');
+            }
+        }
+        else{
+
+            $_SESSION['cart']['product_'.strval(count($_SESSION['cart']))] = [
+    
+                'item_id' =>  $_GET['add_to_cart']
+            ];
+            header('Location: cart.php');
+        }
     }
 }
 

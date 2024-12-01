@@ -1,10 +1,12 @@
 <?php
 
+
 include_once(__DIR__. "/classes/Product.php");
 include_once(__DIR__. "/classes/User.php");
 include_once(__DIR__. "/classes/Order.php");
 
 session_start();
+
 if(isset($_SESSION["username"])){
 
     // $user = new User();
@@ -14,21 +16,25 @@ if(isset($_SESSION["username"])){
     $user = User::sGetUser($_SESSION['username']);
     $role = $user['role'];
     $coins = $user['coins'];
-    // VAR_DUMP($role);
-    // echo "Welcome ".$_SESSION["username"];
 }
+
 else {
 
     header("Location: login.php");
 }
 
-$cartItems = $_SESSION['cart'];
+if(!empty($_SESSION['cart'])){
 
-$products = array();
-forEach($cartItems as $id){
+    $cartItems = $_SESSION['cart'];
+    var_dump($_SESSION['cart']);
 
-    $product = Product::getProductByID($id);
-    array_push($products, $product);
+    $products = array();
+    forEach($cartItems as $product){
+
+        // var_dump(gettype($product));
+        $cProduct = Product::getProductByID($product['item_id']);
+        array_push($products, $cProduct);
+    }
 }
 
 if(!empty($_GET['ordered'])){
@@ -64,7 +70,8 @@ if(!empty($_GET['ordered'])){
 </nav>
 
 <a href="clear_cart.php">clear cart</a>
-    
+
+<?php if(!empty($_SESSION['cart'])): ?>
 <?php forEach($products as $product): ?>
 
     <div class="product_container" onclick="window.location.href='product_details.php?id=<?php echo $product['id']; ?>'">
@@ -74,6 +81,7 @@ if(!empty($_GET['ordered'])){
         <p><?php echo htmlspecialchars($product['price']) ?> coins</p>
     </div>
 <?php endforeach; ?>
+<?php endif; ?>
 
 <a href="cart.php?ordered=true">order</a>
 </div>
