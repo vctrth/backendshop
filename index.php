@@ -48,7 +48,7 @@ $genres = Product::getGenres();
     <nav class="top_nav">
 
         <div class="left_content">
-            <h3><a href="index.php">webglørpp<span class="accent_color">.</span></a></h3>
+            <h3 onclick="window.location.href = 'index.php'">webglørpp<span class="accent_color">.</span></h3>
         </div>
         
         <div class="right_content">
@@ -62,46 +62,58 @@ $genres = Product::getGenres();
 
     <div class="container">
 
-        <h2><i>Welcome, <?php echo htmlspecialchars($_SESSION['username']) ?>!</i></h2>
-        <h3 class="accent_color">coins: <?php echo $coins ?></h3>
+        <section class="header">
+        
+            <h2><i>Welcome, <?php echo htmlspecialchars($_SESSION['username']) ?>!</i></h2>
+            <h3 class="accent_color">coins: <?php echo $coins ?></h3>
+        </section>
 
-        <label for="searchbar"></label>
-        <input type="text" name="" id="searchbar" onchange="
-            window.location.href=`index.php?search=${document.querySelector('#searchbar').value}`"
-            placeholder='Search for an artist, album or description'
-        >
+        <div class="shop">
 
-        <div class="filter_container">
+            <div class="left">
 
-            <div class="filters">
+                <h3><b>FILTERS</b></h3>
+                <label for="searchbar"></label>
+                <input type="text" name="" id="searchbar" onchange="
+                    window.location.href=`index.php?search=${document.querySelector('#searchbar').value}`"
+                    placeholder='Search artist, album or description'
+                >
 
-                <?php foreach($genres as $genre): ?>
-                    <a href="index.php?genre=<?php echo htmlspecialchars($genre['genre']) ?>"><?php echo htmlspecialchars($genre['genre']) ?></a>
+                <div class="filter_container">
+
+                    <div class="filters">
+
+                        <?php if(isset($_GET['genre']) || isset($_GET['search'])): ?>
+                            <a href="index.php" class='filter_link'>reset filter</a>
+                        <?php endif; ?>
+
+                        <?php foreach($genres as $genre): ?>
+                            <a href="index.php?genre=<?php echo htmlspecialchars($genre['genre']) ?>" class="filter_link"><?php echo htmlspecialchars($genre['genre']) ?></a>
+                        <?php endforeach; ?>
+                    </div>
+
+                </div>
+            </div>
+            
+            <div class="products">
+                
+                <?php forEach($products as $product): ?>
+                    
+                    <div class="product_container" onclick="window.location.href='product_details.php?id=<?php echo $product['id']; ?>'">
+                        <img src="<?php echo htmlspecialchars($product['thumbnail']) ?>" alt="" class="album_cover">
+                        <p><b><?php echo htmlspecialchars($product['name']) ?></b></p>
+                        <p><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></p>
+                        <p><?php echo htmlspecialchars($product['price']) ?> coins</p>
+                        
+                        <?php if($role === 1): ?>
+                            <a href="delete_product.php?id=<?php echo $product['id'] ?>" >delete product</a>
+                            <a href="edit_product.php?id=<?php echo $product['id'] ?>" >edit product</a>
+                        <?php endif; ?>
+                    </div>
                 <?php endforeach; ?>
             </div>
-
-            <?php if(isset($_GET['genre']) || isset($_GET['search'])): ?>
-                <a href="index.php">reset filter</a>
-            <?php endif; ?>
-        </div>
-
-        <div class="products">
-
-            <?php forEach($products as $product): ?>
-
-                <div class="product_container" onclick="window.location.href='product_details.php?id=<?php echo $product['id']; ?>'">
-                    <img src="<?php echo htmlspecialchars($product['thumbnail']) ?>" alt="" class="album_cover">
-                    <p><b><?php echo htmlspecialchars($product['name']) ?></b></p>
-                    <p><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></p>
-                    <p><?php echo htmlspecialchars($product['price']) ?> coins</p>
-                    <?php if($role === 1): ?>
-                        <a href="delete_product.php?id=<?php echo $product['id'] ?>" >delete product</a>
-                        <a href="edit_product.php?id=<?php echo $product['id'] ?>" >edit product</a>
-                    <?php endif; ?>
-                </div>
-            <?php endforeach; ?>
-        </div>
-
+        </div>  
+                    
         <!-- Example product -->
         <!-- <div class="product_container">
 

@@ -38,6 +38,7 @@ $orders = Order::getAll($user_id);
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="style/profile.css">
 </head>
+
 <body>
     <nav class="top_nav">
 
@@ -53,7 +54,7 @@ $orders = Order::getAll($user_id);
     
     <div class="container">
 
-        <h2><i>Welcome, <?php echo htmlspecialchars($user ->getUsername()) ?></i></h2>
+        <h2><i>Welcome, <?php echo htmlspecialchars($user ->getUsername()) ?></i></h2> 
 
         <div class="box">
             <section class="orders_container">

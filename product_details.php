@@ -90,7 +90,7 @@ if(!empty($_GET['add_to_cart'])){
     <nav class="top_nav">
 
         <div class="left_content">
-            <h3><a href="index.php">webglørpp<span class="accent_color">.</span></a></h3>
+            <h3 onclick="window.location.href = 'index.php'">webglørpp<span class="accent_color">.</span></h3>
         </div>
 
         <div class="right_content">

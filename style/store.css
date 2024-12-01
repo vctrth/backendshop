@@ -8,7 +8,7 @@ h2 {
 
 .container {
 
-    max-width: 80%;
+    max-width: 90%;
     margin: auto;
 }
 
@@ -17,7 +17,7 @@ h2 {
     display: flex;
     flex-direction: row;
 
-    justify-content: center;
+    justify-content: start;
 
     /* width: 100%; */
 
@@ -31,7 +31,7 @@ h2 {
     display: flex;
     flex-direction: column;
 
-    max-width: 300px;
+    max-width: 250px;
 
     align-items: start;
     gap: 2px;
@@ -39,6 +39,11 @@ h2 {
     margin: 1em 1em;
 
     transition: all .15s ease-in-out; 
+}
+
+.product_container img {
+
+    margin-bottom: .6em;
 }
 
 .products:hover .product_container{
@@ -94,8 +99,55 @@ h2 {
 
 .filter_container {
 
+    margin-top: 1em;
+}
+
+.filters {
+
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-between; */
+    gap: 1em;
+}
+
+.shop {
+
     display: flex;
     flex-direction: row;
-    /* justify-content: space-between; */
     gap: 2em;
+}
+
+.filter_link {
+
+    display: block;
+    
+    font-size: 1em;
+    color: lightgray;
+    text-decoration: none;
+    
+    transition: all .2s ease-out;
+}
+
+.filter_link:hover {
+    
+    font-size: 1.3em;
+    text-decoration: underline;
+    color: black;
+}
+
+#searchbar {
+
+    border: none;
+    border-bottom: solid 1px #757575;
+
+    width: 100%;
+    min-width: 15em;
+}
+#searchbar:focus {
+
+    outline: none;
+}
+#searchbar::placeholder {
+
+    color: #757575;
 }
