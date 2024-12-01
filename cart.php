@@ -26,7 +26,6 @@ else {
 if(!empty($_SESSION['cart'])){
 
     $cartItems = $_SESSION['cart'];
-    var_dump($_SESSION['cart']);
 
     $products = array();
     forEach($cartItems as $product){
@@ -72,13 +71,14 @@ if(!empty($_GET['ordered'])){
 <a href="clear_cart.php">clear cart</a>
 
 <?php if(!empty($_SESSION['cart'])): ?>
-<?php forEach($products as $product): ?>
+<?php forEach($products as $key => $product): ?>
 
     <div class="product_container" onclick="window.location.href='product_details.php?id=<?php echo $product['id']; ?>'">
         <img src="<?php echo htmlspecialchars($product['thumbnail']) ?>" alt="" class="album_cover">
         <p><b><?php echo htmlspecialchars($product['name']) ?></b></p>
         <p><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></p>
         <p><?php echo htmlspecialchars($product['price']) ?> coins</p>
+        <p>Quantity: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity']) ?> Total price: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity'] * $product['price']) ?></p>
     </div>
 <?php endforeach; ?>
 <?php endif; ?>
