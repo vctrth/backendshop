@@ -86,6 +86,10 @@ class Product {
      */ 
     public function setPrice($price)
     {
+        if($price < 0){
+
+            $price = abs($price);
+        }
         $this->price = $price;
 
         return $this;
