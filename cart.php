@@ -1,6 +1,5 @@
 <?php
 
-
 include_once(__DIR__. "/classes/Product.php");
 include_once(__DIR__. "/classes/User.php");
 include_once(__DIR__. "/classes/Order.php");
@@ -39,9 +38,11 @@ if(!empty($_SESSION['cart'])){
 
 if(!empty($_GET['ordered'])){
 
-    Order::addToOrder($_SESSION['cart'], $user['id']);
-    $_SESSION['cart'] = [];
+    // var_dump($_SESSION['cart']);
+    // Order::addToOrder($_SESSION['cart'], $user['id']);
+    // $_SESSION['cart'] = [];
     // Order::getAll($user['id']);
+    var_dump(Order::canBuyCart($_SESSION['cart'], $user['id']));
 }
 ?>
 <!DOCTYPE html>
@@ -75,6 +76,7 @@ if(!empty($_GET['ordered'])){
 
 <?php if(!empty($_SESSION['cart'])): ?>
 <?php forEach($products as $key => $product): ?>
+
 
     <div class="product_container" onclick="window.location.href='product_details.php?id=<?php echo $product['id']; ?>'">
         <img src="<?php echo htmlspecialchars($product['thumbnail']) ?>" alt="" class="album_cover">

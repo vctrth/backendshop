@@ -64,8 +64,7 @@ $genres = Product::getGenres();
 
         <section class="header">
         
-            <h2><i>Welcome, <?php echo htmlspecialchars($_SESSION['username']) ?>!</i></h2>
-            <h3 class="accent_color">coins: <?php echo $coins ?></h3>
+            <h2><i>Welcome, <?php echo htmlspecialchars($_SESSION['username']) ?>! <span class='accent_color'> you currently have <?php echo $coins ?> coins left!</span></i></h2>
         </section>
 
         <div class="shop">

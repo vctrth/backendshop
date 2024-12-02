@@ -215,4 +215,56 @@ class Order {
             $statement->execute();
         }
     }
+
+    public static function getTotalOfCart($cart){
+
+        $total = 0;
+
+        $conn = Db::getConnection();
+
+        foreach($cart as $i => $order){
+
+            $statement = $conn->prepare('SELECT price FROM tl_item WHERE id = :id');
+            $statement->bindValue(':id', $order['item_id']);
+            $statement->execute();
+
+            $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+            if(isset($order['quantity'])){
+
+                $total += $result['price'] * $order['quantity'];
+            }
+            else {
+
+                $total += $result['price'];
+            }
+        }
+
+        return $total;
+    }
+
+    public static function canBuyCart($cart, $user){
+
+        $total = 0;
+
+        $conn = Db::getConnection();
+
+        $statement = $conn->prepare('SELECT coins FROM tl_user WHERE id = :id');
+        $statement->bindValue(':id', $user);
+        $statement->execute();
+
+        $coins = $statement->fetch(PDO::FETCH_ASSOC);
+
+        $total = Order::getTotalOfCart($cart);
+
+        if($coins['coins'] >= $total){
+
+            return true;
+        }
+        else {
+
+            return false;
+        }
+
+    }
 }

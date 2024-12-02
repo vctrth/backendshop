@@ -3,6 +3,20 @@
 include_once(__DIR__. "/classes/Product.php");
 include_once(__DIR__. "/classes/User.php");
 
+//Cloudinary
+require __DIR__ . '/vendor/autoload.php';
+use Cloudinary\Api\Upload\UploadApi;
+
+//API Keys
+$jsonString = file_get_contents(__DIR__."/api_keys.json");
+$config = json_decode($jsonString, true);
+
+// Use the Configuration class 
+use Cloudinary\Configuration\Configuration;
+
+// Configure an instance of your Cloudinary cloud
+Configuration::instance('cloudinary://'.$config['cloudinaryConfig']['API_KEY'].':'.$config['cloudinaryConfig']['API_SECRET'].'@'.$config['cloudinaryConfig']['CLOUD_NAME'].'?secure=true');
+
 session_start();
 if(isset($_SESSION["username"])){
 
@@ -23,6 +37,8 @@ else {
     header("Location: login.php");
 }
 
+$selectedProduct = Product::getProductByID($_GET['id']);
+
 if(!empty($_POST)){
 
     $product = new Product;
@@ -32,15 +48,21 @@ if(!empty($_POST)){
     $product->setDescription($_POST["description"]);
     $product->setGenre($_POST["genre"]);
     $product->setPrice($_POST["price"]);
-    $product->setThumbnail($_POST["thumbnail"]);
+    // $product->setThumbnail($_POST["thumbnail"]);
+    if(!empty($_FILES['thumbnail']['tmp_name'])){
+        $filePath = $_FILES['thumbnail']['tmp_name'];
+        $image = (new UploadApi())->upload($filePath)['secure_url'];
+        $product->setThumbnail($image);
+    }
+    else {
+        $product->setThumbnail($selectedProduct['thumbnail']);
+    }
     $product->setStock($_POST["stock"]);
     // $product->setArtist($_POST["artist"]);
 
     $product->update($_GET['id']);
     header("Location: index.php"); 
 }
-
-$selectedProduct = Product::getProductByID($_GET['id']);
 
 ?>
 <!DOCTYPE html>
@@ -72,7 +94,7 @@ $selectedProduct = Product::getProductByID($_GET['id']);
     
     <div class="container">
 
-        <form action="" method="post" class="add_product_form">
+        <form action="" method="post" class="add_product_form" enctype="multipart/form-data">
 
             <label for="name">Name</label>
             <input type="text" id="name" name="name" value= '<?php echo $selectedProduct['name']?>'>
@@ -90,10 +112,11 @@ $selectedProduct = Product::getProductByID($_GET['id']);
             <input type="number" id="price" name="price" value= '<?php echo $selectedProduct['price']?>'>
 
             <label for="thumbnail">Thumbnail</label>
-            <input type="text" id="thumbnail" name="thumbnail" value= '<?php echo $selectedProduct['thumbnail']?>'>
+            <!-- <input type="text" id="thumbnail" name="thumbnail" value= '<?php echo $selectedProduct['thumbnail']?>'> -->
+            <input type="file" id="thumbnail" name="thumbnail" accept="image/*">
 
             <label for="stock">Stock</label>
-            <input type="text" id="stock" name="stock" value= '<?php echo $selectedProduct['stock']?>'>
+            <input type="number" id="stock" name="stock" value= '<?php echo $selectedProduct['stock']?>'>
 
             <input type="submit" value="edit" class="btn">
         </form>

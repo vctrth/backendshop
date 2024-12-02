@@ -3,6 +3,20 @@
 include_once(__DIR__. "/classes/Product.php");
 include_once(__DIR__. "/classes/User.php");
 
+//Cloudinary
+require __DIR__ . '/vendor/autoload.php';
+use Cloudinary\Api\Upload\UploadApi;
+
+//API Keys
+$jsonString = file_get_contents(__DIR__."/api_keys.json");
+$config = json_decode($jsonString, true);
+
+// Use the Configuration class 
+use Cloudinary\Configuration\Configuration;
+
+// Configure an instance of your Cloudinary cloud
+Configuration::instance('cloudinary://'.$config['cloudinaryConfig']['API_KEY'].':'.$config['cloudinaryConfig']['API_SECRET'].'@'.$config['cloudinaryConfig']['CLOUD_NAME'].'?secure=true');
+
 session_start();
 if(isset($_SESSION["username"])){
 
@@ -32,12 +46,15 @@ if(!empty($_POST)){
     $product->setDescription($_POST["description"]);
     $product->setGenre($_POST["genre"]);
     $product->setPrice($_POST["price"]);
-    $product->setThumbnail($_POST["thumbnail"]);
+    // $product->setThumbnail($_POST["thumbnail"]);
+    $filePath = $_FILES['thumbnail']['tmp_name'];
+    $image = (new UploadApi())->upload($filePath)['secure_url'];
+    $product->setThumbnail($image);
     $product->setStock($_POST["stock"]);
-    // $product->setArtist($_POST["artist"]);
 
     $product->save();
     header("Location: index.php"); 
+    // var_dump($image);
 }
 
 
@@ -71,7 +88,7 @@ if(!empty($_POST)){
     
     <div class="container">
 
-        <form action="" method="post" class="add_product_form">
+        <form action="" method="post" class="add_product_form" enctype="multipart/form-data">
 
             <label for="name">Name</label>
             <input type="text" id="name" name="name">
@@ -89,10 +106,12 @@ if(!empty($_POST)){
             <input type="number" id="price" name="price">
 
             <label for="thumbnail">Thumbnail</label>
-            <input type="text" id="thumbnail" name="thumbnail">
+            <!-- <input type="text" id="thumbnail" name="thumbnail"> -->
+
+            <input type="file" id="thumbnail" name="thumbnail" accept="image/*">
 
             <label for="stock">Stock</label>
-            <input type="text" id="stock" name="stock">
+            <input type="number" id="stock" name="stock">
 
             <input type="submit" value="add" class="btn">
         </form>
