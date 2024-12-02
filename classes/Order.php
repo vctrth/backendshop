@@ -174,7 +174,6 @@ class Order {
             $statement_2->execute();
 
             $result_2 = $statement_2->fetchAll(PDO::FETCH_ASSOC);
-            // var_dump($result_2);
 
             //Making it into a readable array
             $result_temp = [
@@ -214,6 +213,23 @@ class Order {
 
             $statement->execute();
         }
+
+        //Get user coins
+        $statement = $conn->prepare('SELECT coins FROM tl_user WHERE id = :id');
+        $statement->bindValue(':id', $user);
+        $statement->execute();
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        //Get total of cart
+        $total = Order::getTotalOfCart($orderArray);
+
+        //Update user coins
+        $statement = $conn->prepare('UPDATE tl_user SET coins = :coins WHERE id = :id');
+        $statement->bindValue(':coins', $result['coins'] - $total);
+        $statement->bindValue(':id', $user);
+        $statement->execute();
+
+        header('Location: profile.php');
     }
 
     public static function getTotalOfCart($cart){

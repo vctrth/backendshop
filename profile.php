@@ -43,11 +43,14 @@ $orders = Order::getAll($user_id);
     <nav class="top_nav">
 
         <div class="left_content">
-            <h3><a href="index.php">webglørpp<span class="accent_color">.</span></a></h3>
+            <h3 onclick="window.location.href = 'index.php'">webglørpp<span class="accent_color">.</span></h3>
         </div>
 
         <div class="right_content">
+
             <?php if($role === 1): ?><a href="add_product.php">add product</a><?php endif; ?>
+            <a href="cart.php">cart</a>
+            <a href="profile.php">profile</a>
             <a href="logout.php">logout</a>
         </div>
     </nav>

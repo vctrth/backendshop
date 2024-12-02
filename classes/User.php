@@ -55,7 +55,7 @@ class User {
     $conn = Db::getConnection();
 
         // echo $password;
-        $query = $conn->prepare('INSERT INTO tl_user(username, password, role) VALUES (:username, :password, 0);');
+        $query = $conn->prepare('INSERT INTO tl_user(username, password, role, coins) VALUES (:username, :password, 0, 1000);');
 
         $username = $this->getUsername();
         $password = $this->getPassword();

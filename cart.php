@@ -32,17 +32,24 @@ if(!empty($_SESSION['cart'])){
         $cProduct = Product::getProductByID($product['item_id']);
         array_push($products, $cProduct);
     }
+}
+else {
 
-    var_dump($cartItems);
+    header("Location: index.php");
 }
 
 if(!empty($_GET['ordered'])){
 
-    // var_dump($_SESSION['cart']);
-    // Order::addToOrder($_SESSION['cart'], $user['id']);
-    // $_SESSION['cart'] = [];
-    // Order::getAll($user['id']);
-    var_dump(Order::canBuyCart($_SESSION['cart'], $user['id']));
+    if(Order::canBuyCart($_SESSION['cart'], $user['id'])){
+
+        Order::addToOrder($_SESSION['cart'], $user['id']);
+        $_SESSION['cart'] = [];
+    }
+
+    else {
+
+        $error = true;
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -61,18 +68,23 @@ if(!empty($_GET['ordered'])){
 <nav class="top_nav">
 
 <div class="left_content">
-    <h3><a href="index.php">webglørpp<span class="accent_color">.</span></a></h3>
+    <h3 onclick="window.location.href = 'index.php'">webglørpp<span class="accent_color">.</span></h3>
 </div>
 
 <div class="right_content">
 
     <?php if($role === 1): ?><a href="add_product.php">add product</a><?php endif; ?>
+    <a href="cart.php">cart</a>
     <a href="profile.php">profile</a>
     <a href="logout.php">logout</a>
 </div>
 </nav>
 
 <a href="clear_cart.php">clear cart</a>
+
+<?php if(isset($error)): ?>
+    <p class='error_text'>you don't have enough coins to buy this cart</p>
+<?php endif; ?>
 
 <?php if(!empty($_SESSION['cart'])): ?>
 <?php forEach($products as $key => $product): ?>
@@ -90,6 +102,7 @@ if(!empty($_GET['ordered'])){
 <?php endforeach; ?>
 <?php endif; ?>
 
+<p>order total is <?php echo Order::getTotalOfCart($_SESSION['cart']) ?></p>
 <a href="cart.php?ordered=true">order</a>
 </div>
 </body>
