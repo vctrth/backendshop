@@ -176,4 +176,14 @@ public function changePassword($oldPassword, $newPassword){
 
         return $this;
     }
+
+    public static function getUserByID($id){
+        
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT * FROM tl_user WHERE id = :id");
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+
+        return $statement->fetch(PDO::FETCH_ASSOC);
+    }
 }

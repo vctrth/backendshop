@@ -3,19 +3,40 @@
 include_once(__DIR__. "/classes/Product.php");
 include_once(__DIR__. "/classes/User.php");
 include_once(__DIR__.'/settings/settings.php');
+include_once(__DIR__.'/classes/Review.php');
+
 
 $product = Product::getProductByID($_GET['id']);
+$allReviews = Review::getAll($_GET['id']);
 
 session_start();
 
 //functions
-function checkNestedArrays(){
-            
+function checkNestedArrays($bool){
+
+    $bProduct = [
+        'item_id' => $_GET['add_to_cart'], 
+        'variation' => $_GET['variation']
+    ];
+
+    // var_dump($bProduct);
+    // var_dump($_SESSION['cart']);
+    
     foreach($_SESSION['cart'] as $i => $product){
 
-        if((in_array($_GET['add_to_cart'], $_SESSION['cart'][$i]))){
+        if(!$bool){
 
-            return $i;
+            if(in_array($bProduct['item_id'], $product)){
+
+                return $i;
+            }
+        }
+        else {
+
+            if(in_array($bProduct['item_id'], $product) && in_array($bProduct['variation'], $product)){
+
+                return $i;
+            }
         }
     }
 }
@@ -30,24 +51,31 @@ if(isset($_SESSION["username"])){
     // echo "Welcome ".$_SESSION["username"];
 }
 
+if(!empty($_POST)){
+
+    header('Location: product_details.php?id='.$product['id'].'&add_to_cart='.$product['id'].'&variation='.$_POST['variation']);
+}
+
 if(!empty($_GET['add_to_cart'])){
 
-    if(!isset($_SESSION['cart'])){
+    if(empty($_SESSION['cart'])){
                     
         $_SESSION['cart'] = [];
         $_SESSION['cart']['product_'.count($_SESSION['cart'])] = [
 
-            'item_id' =>  $_GET['add_to_cart']
+            'item_id' =>  $_GET['add_to_cart'],
+            'variation' => $_GET['variation']
         ];
         header('Location: cart.php');
     }
     
     else {
         
-        if(checkNestedArrays()){
+        if(checkNestedArrays(true)){
 
-            $position = checkNestedArrays();
-            var_dump($_SESSION['cart']);
+            $position = checkNestedArrays(true);
+            // var_dump($_SESSION['cart']);
+            
 
             if(isset($_SESSION['cart'][$position]['quantity'])){
 
@@ -59,12 +87,14 @@ if(!empty($_GET['add_to_cart'])){
                 $_SESSION['cart'][$position]['quantity']  = 2;
                 header('Location: cart.php');
             }
+
         }
         else{
 
             $_SESSION['cart']['product_'.strval(count($_SESSION['cart']))] = [
     
-                'item_id' =>  $_GET['add_to_cart']
+                'item_id' =>  $_GET['add_to_cart'],
+                'variation' => $_GET['variation']
             ];
             header('Location: cart.php');
         }
@@ -105,6 +135,8 @@ if(!empty($_GET['add_to_cart'])){
             <img src="<?php echo htmlspecialchars($product['thumbnail']) ?>" alt="" class="album_cover">
             
             <div class="right_content">
+
+                <!-- product template -->
                 <h2 class="title"><b><?php echo htmlspecialchars($product['name']) ?></b></h2>
                 <h3 class="artist"><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></h3>
                 <p class="price"><b><?php echo htmlspecialchars($product['price']) ?> coins</b></p>
@@ -112,9 +144,40 @@ if(!empty($_GET['add_to_cart'])){
                 <?php if(!empty($product['description'])): ?>
                     <p class="description"><?php echo htmlspecialchars($product['description']) ?> </p>
                 <?php endif; ?>
-                <a href="product_details.php?id=<?php echo $product['id']?>&add_to_cart=<?php echo $product['id']?>" class="btn">add to cart</a>
-            </div>
+
+                <form action="" class="buy_item" method="POST">
+
+                    <select name="variation" id="variation">
+                        <option value="1">NORMAL</option>
+                        <option value="2">DELUXE</option>
+                    </select>
+                    <button type="submit" class="btn">add to cart</button>
+                </form>
+
+                <!-- Reviews -->
+                <h3>Write your own review</h3>
+                <div class="review_input">
+
+                    <label for="review_text">Write a review</label>
+                    <input type="text" name="review" id="review_text">
+                    <label for="review_stars">How many stars would you give this album</label>
+                    <input type="number" name="" id="review_stars" max="5">
+                    <a class="btn" data-reviewid='<?php echo $_GET['id'] ?>' id='submit_review'>add review</a>
+                </div>
+
+                <div class="review_container">
+                    <h3>Reviews</h3>
+                    <ul class="reviews">
+                        <?php foreach($allReviews as $i => $review): ?>
+
+                            <li><b><?php echo User::getUserByID($review['user_id'])['username'] ?></b>: <?php echo $review['content'].' '.$review['stars'].'/5 stars' ?></li>
+                        <?php endforeach; ?>
+                    </ul>
+                </div>
+            </div>  
         </div>
     </div>
+
+    <script src='js/reviews.js'></script>
 </body>
 </html>

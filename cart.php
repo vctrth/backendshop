@@ -51,6 +51,8 @@ if(!empty($_GET['ordered'])){
         $error = true;
     }
 }
+
+// var_dump($_SESSION['cart']);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -89,14 +91,17 @@ if(!empty($_GET['ordered'])){
 <?php if(!empty($_SESSION['cart'])): ?>
 <?php forEach($products as $key => $product): ?>
 
-
+    <?php $productPrice = Product::getProductPrice($cartItems['product_'.$key]['item_id'], $cartItems['product_'.$key]['variation']); ?>
     <div class="product_container" onclick="window.location.href='product_details.php?id=<?php echo $product['id']; ?>'">
+        <?php if($cartItems['product_'.$key]['variation'] == 2): ?>
+            <p><b><i><span class='error_text' style="text-transform:uppercase">DELUXE EDITION</span></i></b></p>
+        <?php endif; ?>
         <img src="<?php echo htmlspecialchars($product['thumbnail']) ?>" alt="" class="album_cover">
         <p><b><?php echo htmlspecialchars($product['name']) ?></b></p>
         <p><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></p>
-        <p><?php echo htmlspecialchars($product['price']) ?> coins</p>
+        <p><?php echo $productPrice; ?> coins</p>
         <?php if(isset($cartItems['product_'.$key]['quantity'])): ?>
-            <p>Quantity: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity']) ?> Total price: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity'] * $product['price']) ?></p>
+            <p>Quantity: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity']) ?> Total price: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity'] * $productPrice) ?></p>
         <?php endif; ?>
     </div>
 <?php endforeach; ?>

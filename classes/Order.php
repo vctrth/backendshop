@@ -199,9 +199,10 @@ class Order {
 
         foreach($orderArray as $i => $order){
 
-            $statement = $conn->prepare('INSERT INTO tl_itemorder(item_id, order_id, quantity, variation_id) VALUES (:item_id, :order_id, :quantity, 1)');
+            $statement = $conn->prepare('INSERT INTO tl_itemorder(item_id, order_id, quantity, variation_id) VALUES (:item_id, :order_id, :quantity, :variation_id)');
             $statement->bindValue(':item_id', $order['item_id']);
             $statement->bindValue(':order_id', $last_id);
+            $statement->bindValue(':variation_id', $order['variation']);
             if(isset($order['quantity'])){
                 
                 $statement->bindValue(':quantity', $order['quantity']);
@@ -235,24 +236,21 @@ class Order {
     public static function getTotalOfCart($cart){
 
         $total = 0;
+        $priceMult = 1;
 
         $conn = Db::getConnection();
 
         foreach($cart as $i => $order){
 
-            $statement = $conn->prepare('SELECT price FROM tl_item WHERE id = :id');
-            $statement->bindValue(':id', $order['item_id']);
-            $statement->execute();
-
-            $result = $statement->fetch(PDO::FETCH_ASSOC);
+            $result = Product::getProductPrice($order['item_id'], $order['variation']);
 
             if(isset($order['quantity'])){
 
-                $total += $result['price'] * $order['quantity'];
+                $total += $result * $order['quantity'];
             }
             else {
 
-                $total += $result['price'];
+                $total += $result;
             }
         }
 
@@ -283,4 +281,17 @@ class Order {
         }
 
     }
+
+    // public static function getOrderedVariation($id){
+
+    //     $conn = Db::getConnection();
+
+    //     $statement = $conn->prepare('SELECT variation_id FROM tl_itemorder WHERE order_id = :id');
+    //     $statement->bindValue(':id', $id);
+    //     $statement->execute();
+
+    //     $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+    //     return $result['variation_id'];
+    // }
 }

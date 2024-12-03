@@ -66,29 +66,38 @@ $orders = Order::getAll($user_id);
 
                 <div class="orders">
 
-                    <?php foreach(array_reverse($orders) as $order): ?>                    
+
+                    <!-- Order template -->
+                    <?php foreach(array_reverse($orders) as $order): ?>
+                        
+                        <?php $total = 0 ?>
                         <div class="order">
 
                             <h2 class="accent_color"><?php echo $order['date_of_order'] ?></h2>
 
-                            <?php foreach($order['items'] as $item): ?>
-
+                            <?php foreach($order['items'] as $i => $item): ?>
+                                
                                 <div class="product_container">
 
                                     <?php 
                                     //Getting the products
                                     $current_item = Product::getProductByID($item['item_id']);
+                                    $productPrice = Product::getProductPrice($item['item_id'], $item['variation_id']);
+                                    // var_dump($item);    
                                     ?>
-
+                                    <?php if($item['variation_id'] == 2): ?>
+                                        <p><b><i><span class='error_text' style="text-transform:uppercase">DELUXE EDITION</span></i></b></p>
+                                    <?php endif; ?>
                                     <img src="<?php echo $current_item['thumbnail'] ?>" alt=""  class="album_cover">
                                     <div class="textbox">
                                         <p><b><?php echo $current_item['name'] ?></b><p>
                                         <p><span class="accent_color"><?php echo $current_item['artist'] ?></span></p>
-                                        <p><?php echo $current_item['price'] ?></p>
                                         <p>Amount: <?php echo $item['quantity'] ?></p>
+                                        <p><?php echo $productPrice * $item['quantity']; $total +=$productPrice * $item['quantity'];?></p>
                                     </div>
                                 </div>  
-                            <?php endforeach; ?>    
+                            <?php endforeach; ?>
+                            <p><b>Total order price <?php echo $total?> coins</b></p>  
                         </div>
                     <?php endforeach; ?>
                     <!-- Order template -->

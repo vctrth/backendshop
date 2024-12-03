@@ -312,8 +312,33 @@ class Product {
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT DISTINCT genre FROM tl_item");
         $statement->execute();
-
+        
         $result = $statement->fetchAll(PDO::FETCH_ASSOC);
         return $result;
+    }
+    
+    public static function getProductPrice($id, $variation){
+        
+        $conn = Db::getConnection();
+        $statement = $conn->prepare('SELECT price FROM tl_item WHERE id = :id');
+        $statement->bindValue(':id', $id);
+        $statement->execute();
+
+        $result = $statement->fetch(PDO::FETCH_ASSOC);
+
+        //Deluxe price multiplier
+        if(($variation == 2)){
+
+            $statement_2 = $conn->prepare('SELECT price_mult FROM tl_variations WHERE id = :id');
+            $statement_2->bindValue(':id', $variation);
+            $statement_2->execute();
+
+            $priceMult = $statement_2->fetch(PDO::FETCH_ASSOC)['price_mult'];
+        } else {
+            $priceMult = 1;
+        }
+
+        $total = $result['price'] * $priceMult;
+        return $total;
     }
 }
