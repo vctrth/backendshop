@@ -10,7 +10,7 @@
 
             if(self::$conn === null){
 
-                $pathToSSL = __DIR__ . "/DigiCertGlobalRootCA.crt.pem";
+                $pathToSSL = __DIR__ . "../DigiCertGlobalRootCA.crt.pem";
                 $options = [
                     PDO::MYSQL_ATTR_SSL_CA => $pathToSSL
                 ];
