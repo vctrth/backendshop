@@ -7,15 +7,15 @@ include_once(__DIR__. "/classes/User.php");
 require __DIR__ . '/vendor/autoload.php';
 use Cloudinary\Api\Upload\UploadApi;
 
-//API Keys
-$jsonString = file_get_contents(__DIR__."/api_keys.json");
-$config = json_decode($jsonString, true);
-
 // Use the Configuration class 
 use Cloudinary\Configuration\Configuration;
 
-// Configure an instance of your Cloudinary cloud
-Configuration::instance('cloudinary://'.$config['cloudinaryConfig']['API_KEY'].':'.$config['cloudinaryConfig']['API_SECRET'].'@'.$config['cloudinaryConfig']['CLOUD_NAME'].'?secure=true');
+// Load .env variables
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__.'/settings');
+$dotenv->load();
+
+// Configure an instance of your Cloudinary cloud using .env variables
+Configuration::instance('cloudinary://' . $_ENV['CLOUDINARY_API_KEY'] . ':' . $_ENV['CLOUDINARY_API_SECRET'] . '@' . $_ENV['CLOUDINARY_CLOUD_NAME'] . '?secure=true');
 
 session_start();
 if(isset($_SESSION["username"])){
