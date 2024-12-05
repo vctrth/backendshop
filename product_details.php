@@ -149,13 +149,13 @@ if(!empty($_GET['add_to_cart'])){
 
                     <select name="variation" id="variation">
                         <option value="1">NORMAL</option>
-                        <option value="2">DELUXE</option>
+                        <option value="2">DELUXE +50% price</option>
                     </select>
                     <button type="submit" class="btn">add to cart</button>
                 </form>
 
                 <!-- Reviews -->
-                <h3>Write your own review</h3>
+                <h3 class="review_header">Write your own review</h3>
                 <div class="review_input">
 
                     <label for="review_text">Write a review</label>

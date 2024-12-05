@@ -7,6 +7,11 @@
     align-items: center;
 }
 
+.product_container .right_content {
+
+    width: 100%;
+}
+
 .product_info {
     margin-top: 4em;
 
@@ -21,7 +26,8 @@
 
 .product_info img {
 
-    width: 384px;
+    width: 35%;
+    height: 35%;
 }
 
 .product_info .title {
@@ -69,4 +75,52 @@
     
     display: flex;
     flex-direction: column;
+}
+
+.review_header {
+
+    margin-top: 2em;
+}
+
+.review_input {
+
+    display: flex;
+    flex-direction: column;
+
+    gap: 1em;
+}
+
+#submit_review {
+
+    color: black;
+    text-align: center;
+}
+#submit_review:hover {
+
+    font-size: 1em;
+    text-decoration: none;
+}
+
+.review_container {
+
+    margin-top: 2em;
+}
+
+.review_input input{
+
+    border: none;
+    border-bottom: solid 1px #757575;
+
+    width: 100%;
+    min-width: 15em;
+}
+
+.review_input input:focus {
+
+    outline: none;
+}
+
+.product_info .right_content {
+
+    width: 100%;
 }

@@ -5,9 +5,9 @@ const  SETTINGS = [
     "db"=> [
 
         "dbname" => "backendshop",
-        "user" => "root",
-        "password" => "root",
-        "host" => "localhost",
-        "port" => 8889
+        "user" => "glorpp",
+        "password" => "xPHbm77dRBjEV7M",
+        "host" => "webglorpp.mysql.database.azure.com",
+        "port" => 3306
     ]
 ];

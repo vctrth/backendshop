@@ -84,7 +84,10 @@ h2 {
     margin-top: 1em;
     padding: .5em;
 
+    text-decoration: none;
+
     border: none;
+    border-radius: 8px;
     
     background-color: var(--accent_green);
     filter: saturate(.5);
@@ -145,7 +148,7 @@ h3 a {
     text-decoration: underline;
 }
 
-a{
+a:not(.notA) {
 
     color: #a3a3a3;
     text-decoration: none;
@@ -153,7 +156,7 @@ a{
     transition: all .2s ease-out;
 }
 
-a:hover{
+a:not(.notA):hover{
 
     color: black;
     font-size: 1.05em;
@@ -163,4 +166,15 @@ a:hover{
 .error_text {
 
     color: red;
+}
+
+.cartButtons {
+
+    margin-top: 1em;
+
+    display: flex;
+    flex-direction: row;
+    gap: 1em;
+
+    margin-bottom: 2em;
 }

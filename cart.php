@@ -59,6 +59,9 @@ if(!empty($_GET['ordered'])){
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
     <title>Cart</title>
 
     <link rel="stylesheet" href="normalize.css">
@@ -82,33 +85,39 @@ if(!empty($_GET['ordered'])){
 </div>
 </nav>
 
-<a href="clear_cart.php">clear cart</a>
+<div class="container">
 
-<?php if(isset($error)): ?>
-    <p class='error_text'>you don't have enough coins to buy this cart</p>
-<?php endif; ?>
-
-<?php if(!empty($_SESSION['cart'])): ?>
-<?php forEach($products as $key => $product): ?>
-
-    <?php $productPrice = Product::getProductPrice($cartItems['product_'.$key]['item_id'], $cartItems['product_'.$key]['variation']); ?>
-    <div class="product_container" onclick="window.location.href='product_details.php?id=<?php echo $product['id']; ?>'">
-        <?php if($cartItems['product_'.$key]['variation'] == 2): ?>
-            <p><b><i><span class='error_text' style="text-transform:uppercase">DELUXE EDITION</span></i></b></p>
-        <?php endif; ?>
-        <img src="<?php echo htmlspecialchars($product['thumbnail']) ?>" alt="" class="album_cover">
-        <p><b><?php echo htmlspecialchars($product['name']) ?></b></p>
-        <p><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></p>
-        <p><?php echo $productPrice; ?> coins</p>
-        <?php if(isset($cartItems['product_'.$key]['quantity'])): ?>
-            <p>Quantity: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity']) ?> Total price: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity'] * $productPrice) ?></p>
-        <?php endif; ?>
+    <div class="cartButtons">
+        <a href="clear_cart.php" class="btn notA">clear cart</a>
+        <a href="cart.php?ordered=true" class="btn notA">order</a>
     </div>
-<?php endforeach; ?>
-<?php endif; ?>
 
-<p>order total is <?php echo Order::getTotalOfCart($_SESSION['cart']) ?></p>
-<a href="cart.php?ordered=true">order</a>
+
+    <?php if(isset($error)): ?>
+        <p class='error_text'>you don't have enough coins to buy this cart</p>
+    <?php endif; ?>
+
+    <?php if(!empty($_SESSION['cart'])): ?>
+    <?php forEach($products as $key => $product): ?>
+
+        <?php $productPrice = Product::getProductPrice($cartItems['product_'.$key]['item_id'], $cartItems['product_'.$key]['variation']); ?>
+        <div class="product_container" onclick="window.location.href='product_details.php?id=<?php echo $product['id']; ?>'">
+            <?php if($cartItems['product_'.$key]['variation'] == 2): ?>
+                <p><b><i><span class='error_text' style="text-transform:uppercase">DELUXE EDITION</span></i></b></p>
+            <?php endif; ?>
+            <img src="<?php echo htmlspecialchars($product['thumbnail']) ?>" alt="" class="album_cover">
+            <p><b><?php echo htmlspecialchars($product['name']) ?></b></p>
+            <p><span class="accent_color"><?php echo htmlspecialchars($product['artist']) ?></span></p>
+            <p><?php echo $productPrice; ?> coins</p>
+            <?php if(isset($cartItems['product_'.$key]['quantity'])): ?>
+                <p>Quantity: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity']) ?> Total price: <?php echo htmlspecialchars($cartItems['product_'.$key]['quantity'] * $productPrice) ?></p>
+            <?php endif; ?>
+        </div>
+    <?php endforeach; ?>
+    <?php endif; ?>
+
+    <p><b>order total is <?php echo Order::getTotalOfCart($_SESSION['cart']) ?></b></p>
+    </div>`
 </div>
 </body>
 </html>
