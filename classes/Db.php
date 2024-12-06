@@ -22,8 +22,8 @@ class Db {
             $user = $_ENV['DB_USER'];
             $password = $_ENV['DB_PASSWORD'];
 
-            // self::$conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $password, $options);
-            self::$conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $password);
+            self::$conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $password, $options);
+            // self::$conn = new PDO("mysql:host=$host;port=$port;dbname=$dbname", $user, $password);
             return self::$conn;
         } else {
             return self::$conn;
