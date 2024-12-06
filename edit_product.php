@@ -11,8 +11,8 @@ use Cloudinary\Api\Upload\UploadApi;
 use Cloudinary\Configuration\Configuration;
 
 // Load .env variables
-$dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
-$dotenv->load();
+// $dotenv = Dotenv\Dotenv::createImmutable(__DIR__);
+// $dotenv->load();
 
 // Configure an instance of your Cloudinary cloud using .env variables
 Configuration::instance('cloudinary://' . $_ENV['CLOUDINARY_API_KEY'] . ':' . $_ENV['CLOUDINARY_API_SECRET'] . '@' . $_ENV['CLOUDINARY_CLOUD_NAME'] . '?secure=true');
