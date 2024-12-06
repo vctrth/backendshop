@@ -6,7 +6,7 @@ class Db {
     public static function getConnection() {
         require __DIR__ . "/../vendor/autoload.php";
 
-        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../settings');
+        $dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
         $dotenv->load();
 
         if (self::$conn === null) {
