@@ -6,14 +6,15 @@ if(!empty($_POST)){
 
     $user = new User();
 
-    $user->setUsername($_POST['username']);
+    // $user->setUsername($_POST['username']);
+    $user->setEmail($_POST['email']);
     $user->setPassword($_POST['password']);
 
     if ($user->login()){
 
         //LOGIN
         session_start();
-        $_SESSION["username"] = $user->getUsername();
+        $_SESSION["username"] = $user->getUsernameByEmail();
         header("Location: index.php");
     }
     else {
@@ -50,11 +51,14 @@ if(isset($_SESSION["username"])){
             
 
             <?php if(isset($error)): ?>
-            <p class="error_text">The password or username was incorrect. Please try again</p>
+            <p class="error_text">The password or email was incorrect. Please try again</p>
             <?php endif; ?>
 
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username">
+            <!-- <label for="username">Username</label>
+            <input type="text" id="username" name="username"> -->
+            
+            <label for="email">e-mail</label>
+            <input type="text" id="email" name="email">
 
             <label for="username">Password</label>
             <input type="password" id="password" name="password">

@@ -6,6 +6,7 @@ class User {
 
     private $username;
     private $password;
+    private $email;
     private $role;
     private $coins;
 
@@ -14,7 +15,21 @@ class User {
      */ 
     public function getUsername()
     {
+
         return $this->username;
+    }
+
+    public function getUsernameByEmail()
+    {
+
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT username FROM tl_user WHERE email = :email");
+        $email = $this->getEmail();
+        $statement->bindValue(":email", $email);
+        $statement->execute();
+
+        $result = $statement->fetch();
+        return $result['username'];
     }
 
     /**
@@ -55,14 +70,33 @@ class User {
     $conn = Db::getConnection();
 
         // echo $password;
-        $query = $conn->prepare('INSERT INTO tl_user(username, password, role, coins) VALUES (:username, :password, 0, 1000);');
+        $conn = Db::getConnection();
+        $statement = $conn->prepare("SELECT * FROM tl_user WHERE email = :email");
 
         $username = $this->getUsername();
+        $email = $this->getEmail();
         $password = $this->getPassword();
 
-        $query->bindValue(":username", $username);
-        $query->bindValue(":password", $password);
-        $query->execute();
+        $statement->bindValue(":email", $email);
+
+        $statement->execute();
+        $user = $statement->fetch();
+
+        if($user){
+
+            return false;
+        }
+        else {
+            
+            $query = $conn->prepare('INSERT INTO tl_user(username, email, password, role, coins) VALUES (:username, :email, :password, 0, 1000);');
+            
+            
+            $query->bindValue(":username", $username);
+            $query->bindValue(":email", $email);
+            $query->bindValue(":password", $password);
+            $query->execute();
+        }
+        
     }
 
     public function login(){
@@ -71,11 +105,13 @@ class User {
         // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
         $conn = Db::getConnection();
 
-        $username = $this->getUsername();
+        // $username = $this->getUsername();
+        $email = $this->getEmail();
         $password = $this->getPassword();
 
-        $statement = $conn->prepare("SELECT * FROM tl_user WHERE username = :username");
-        $statement->bindValue(":username", $username);
+        $statement = $conn->prepare("SELECT * FROM tl_user WHERE email = :email");
+        // $statement->bindValue(":username", $username);
+        $statement->bindValue(":email", $email);
         $statement->execute();
         $user = $statement->fetch();
 
@@ -185,5 +221,25 @@ public function changePassword($oldPassword, $newPassword){
         $statement->execute();
 
         return $statement->fetch(PDO::FETCH_ASSOC);
+    }
+
+    /**
+     * Get the value of email
+     */ 
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * Set the value of email
+     *
+     * @return  self
+     */ 
+    public function setEmail($email)
+    {
+        $this->email = $email;
+
+        return $this;
     }
 }

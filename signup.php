@@ -14,12 +14,21 @@ $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "ro
 
             $user = new User();
             $user->setUsername($_POST["username"]);
+            $user->setEmail($_POST["email"]);
             $user->setPassword(password_hash($_POST["password"], PASSWORD_DEFAULT, $options));
-            $user->save();
+            $emailcheck = $user->save();
+            
 
-            session_start();
-            $_SESSION["username"] = $user->getUsername();
-            header("Location: index.php");
+            if($emailcheck == null){
+
+                $emailerror = true;
+            }
+            else {
+
+                session_start();
+                $_SESSION["username"] = $user->getUsername();
+                header("Location: index.php");
+            }
         }
         else {
 
@@ -52,9 +61,15 @@ $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "ro
             <?php if(isset($error)): ?>
             <p class="error_text">The passwords aren't the same. Please try again</p>
             <?php endif; ?>
+            <?php if(isset($emailerror)): ?>
+            <p class="error_text">The email is already used</p>
+            <?php endif; ?>
 
             <label for="username">Username</label>
             <input type="text" id="username" name="username">
+            
+            <label for="email">E-mail</label>
+            <input type="text" id="email" name="email">
 
             <!-- <label for="username">E-mail</label>
             <input type="text" id="email" name="email"> -->
