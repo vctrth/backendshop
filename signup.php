@@ -17,7 +17,7 @@ include_once(__DIR__. "/classes/User.php");
             $emailcheck = $user->save();
             
 
-            if($emailcheck == null){
+            if($emailcheck == false){
 
                 $emailerror = true;
             }
