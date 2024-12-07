@@ -2,8 +2,6 @@
 // $conn = new mysqli("127.0.0.1", "root", "root", "backendshop", "8889");
 include_once(__DIR__. "/classes/User.php");
 
-$conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
-
     if(!empty($_POST)){
 
         if($_POST['password'] === $_POST['confirm_password']){
