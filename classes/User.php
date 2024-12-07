@@ -66,39 +66,26 @@ class User {
 
     public function save(){
 
-    // $conn = new PDO("mysql:host=127.0.0.1;port=8889;dbname=backendshop", "root", "root");
-    $conn = Db::getConnection();
-
-        // echo $password;
         $conn = Db::getConnection();
         $statement = $conn->prepare("SELECT * FROM tl_user WHERE email = :email");
 
-        $username = $this->getUsername();
         $email = $this->getEmail();
-        $password = $this->getPassword();
-
         $statement->bindValue(":email", $email);
-
         $statement->execute();
         $user = $statement->fetch();
 
-        if($user['email'] === $email){
-
+        if($user){
             return false;
-        }
-        else {
-            
+        } else {
             $query = $conn->prepare('INSERT INTO tl_user(username, email, password, role, coins) VALUES (:username, :email, :password, 0, 1000);');
             
-            
-            $query->bindValue(":username", $username);
+            $query->bindValue(":username", $this->getUsername());
             $query->bindValue(":email", $email);
-            $query->bindValue(":password", $password);
+            $query->bindValue(":password", $this->getPassword());
             $query->execute();
 
             return true;
         }
-        
     }
 
     public function login(){

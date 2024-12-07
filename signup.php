@@ -14,10 +14,10 @@ include_once(__DIR__. "/classes/User.php");
             $user->setUsername($_POST["username"]);
             $user->setEmail($_POST["email"]);
             $user->setPassword(password_hash($_POST["password"], PASSWORD_DEFAULT, $options));
-            $emailcheck = $user->save();
+            $accCreate = $user->save();
             
 
-            if($emailcheck = true){
+            if($accCreate === true){
                 
                 session_start();
                 $_SESSION["username"] = $user->getUsername();
