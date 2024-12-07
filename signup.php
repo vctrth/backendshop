@@ -17,15 +17,15 @@ include_once(__DIR__. "/classes/User.php");
             $emailcheck = $user->save();
             
 
-            if($emailcheck == false){
-
-                $emailerror = true;
-            }
-            else {
-
+            if($emailcheck = true){
+                
                 session_start();
                 $_SESSION["username"] = $user->getUsername();
                 header("Location: index.php");
+            }
+            else{
+
+                $emailerror = true;
             }
         }
         else {

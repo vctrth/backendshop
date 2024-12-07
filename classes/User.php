@@ -95,6 +95,8 @@ class User {
             $query->bindValue(":email", $email);
             $query->bindValue(":password", $password);
             $query->execute();
+
+            return true;
         }
         
     }
