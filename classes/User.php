@@ -82,7 +82,7 @@ class User {
         $statement->execute();
         $user = $statement->fetch();
 
-        if($user){
+        if(!empty($user)){
 
             return false;
         }
