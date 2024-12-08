@@ -279,12 +279,43 @@ class Product {
         
         $conn = Db::getConnection();
 
-        if($id === ""){return;};
+        if($id === ""){return;}
 
-        $query = $conn->prepare("DELETE FROM tl_item WHERE id = :givenId");
-        $query->bindValue(":givenId", $id);
+        try {
+            // Begin transaction
+            $conn->beginTransaction();
 
-        $query->execute();
+            // Get all foreign key constraints for the table
+            $query = $conn->prepare("
+                SELECT TABLE_NAME, COLUMN_NAME 
+                FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE 
+                WHERE REFERENCED_TABLE_NAME = 'tl_item' 
+                AND REFERENCED_COLUMN_NAME = 'id'
+            ");
+            $query->execute();
+            $foreignKeys = $query->fetchAll(PDO::FETCH_ASSOC);
+
+            // Delete related records in all tables with foreign key constraints
+            foreach ($foreignKeys as $foreignKey) {
+                $table = $foreignKey['TABLE_NAME'];
+                $column = $foreignKey['COLUMN_NAME'];
+                $deleteQuery = $conn->prepare("DELETE FROM $table WHERE $column = :givenId");
+                $deleteQuery->bindValue(":givenId", $id);
+                $deleteQuery->execute();
+            }
+
+            // Delete the product
+            $query = $conn->prepare("DELETE FROM tl_item WHERE id = :givenId");
+            $query->bindValue(":givenId", $id);
+            $query->execute();
+
+            // Commit transaction
+            $conn->commit();
+        } catch (Exception $e) {
+            // Rollback transaction if something failed
+            $conn->rollBack();
+            throw $e;
+        }
     }
 
     /**
